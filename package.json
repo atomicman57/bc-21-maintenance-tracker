@@ -1,0 +1,14 @@
+{
+  "name": "maintenance-tracker",
+  "version": "1.0.0",
+  "description": "A system to allow reporting of maintenance and repairs request, to track the maintenance process and escalate unusual delays.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Philips Blessing",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.15.2"
+  }
+}
