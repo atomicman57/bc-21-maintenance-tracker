@@ -15,6 +15,7 @@
    $("#adminmenu").show();
    $("#staffwelcome").hide();
    $("#staffmenu").hide();
+   $("#admincon").show();
   }
   
   
@@ -23,6 +24,7 @@
    $("#adminmenu").hide();
    $("#staffwelcome").show();
    $("#staffmenu").show();
+    $("#staffcon").show();
    
   }
   
@@ -64,13 +66,13 @@
       </div>
       <div id="menubar">
         <ul id="menu">
-          <li><a href="#">Home</a></li>
+          <li><a href="/dashboard">Home</a></li>
 		  <span id = "adminmenu"> 
 		  <li class="selected"><a href="/maintenance">Maintenance Requests</a></li>
           <li><a href="/signup">Staffs</a></li>
 		  </span>
 		  <span id = "staffmenu">
-		  <li class="selected"><a href="/maintenance">Report a Maintenance</a></li>
+		  <li class="selected"><a href="/maintenance">Maintenance Requests</a></li>
           <li><a href="/signup">Notifications(0)</a></li>
 		  </span>
           <li><a href = "#" onclick = "signOut()">Sign Out</a></li>
@@ -85,8 +87,25 @@
 	  <div id = "staffcon">
 	  <div id = "mainreq">
 	  <!-- Trigger/Open The Modal -->
-<button id="myBtn">Request a Repair</button>
+<button id="myBtn">Click to Request a Repair</button>
+<br>
 
+<h1> Your Maintenance Request </h1>
+<div class = "tab" id = "table">
+
+<table>
+  <tr>
+    <th>Equipment name/no</th>
+    <th>Description</th>
+    <th>Details</th>
+    <th>Comment</th>
+    <th>Request by</th>
+    <th>Status</th>
+  </tr>
+
+</tr>
+</table>
+</div>
 <!-- The Modal -->
 <div id="myModal" class="modal">
 
@@ -111,19 +130,19 @@
 	<br>
 	<label><b>Detailed Information: </b></label>
 	<br>
-	<textarea></textarea> 
+	<textarea id = "detail"></textarea> 
 	<br>
 	<br>
 	<label><b>Department: </b></label> <br>
-	<input type = "text" id = "equpid"> 
+	<input type = "text" id = "department"> 
 	<br>
 	<br>
 	<label><b>Upload a Picture(optional) </b></label> <br>
 	<br>
-	<input type ="file">
+	<input type ="file" id = "fileupload">
 	<br>
 	<br>
-	<button id="myBtn2">Create Request</button>
+	<button id="myBtn2" onclick = "createrep()">Create Request</button>
 	<br>
 	<br>
     </div>
@@ -148,8 +167,23 @@
 	  </div>
 	  
 	  <div id = "admincon">
-	  
-	  
+	  <h1> All Maintenance Request </h1> 
+	  <div class = "tab" id = "admintable">
+
+<table>
+  <tr>
+    <th>Equipment name/no</th>
+    <th>Description</th>
+    <th>Details</th>
+    <th>Edit Comment</th>
+    <th>Request by</th>
+    <th>Edit Status</th>
+    <th>Assign</th>
+  </tr>
+
+</tr>
+</table>
+</div>
 	  
 	  
 	  
@@ -218,6 +252,27 @@
 });
 
   </script>
+  
+  <script>
+   function createrep(){
+  var equip = $("#equpid").val()
+  var describe = $("#description").val()
+  var detail = $("#detail").val()
+  var depart = $("#department").val()
+  var dbref = firebase.database().ref("requests")
+  var user = firebase.auth().currentUser;
+  userId = user.uid;
+  dbref.child(userId).push({
+  equipment: equip,
+  description: describe,
+  details: detail,
+  department: depart
+  })
+  
+  }
+  </script>
+  
+  
   
   <script>
 // Get the modal

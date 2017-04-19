@@ -70,7 +70,7 @@
           <li><a href="/signup">Staffs</a></li>
 		  </span>
 		  <span id = "staffmenu">
-		  <li><a href="/maintenance">Report a Maintenance</a></li>
+		  <li><a href="/maintenance">Maintenance Requests</a></li>
           <li><a href="/signup">Notifications(0)</a></li>
 		  </span>
           <li><a href = "#" onclick = "signOut()">Sign Out</a></li>
@@ -132,6 +132,11 @@
     </div>
   </div>
   <script>
+  function createrep(){
+  
+  
+  }
+  
   function signOut(){
   firebase.auth().signOut().then(function() {
   window.location = "/signin"
