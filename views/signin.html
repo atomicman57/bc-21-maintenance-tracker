@@ -2,10 +2,11 @@
 <html>
 
 <head>
-  <title>E - Maintenance</title>
+  <title>E - Maintenance Sign In</title>
   <link rel="stylesheet" type="text/css" href="css/style.css" />
+  <script src="https://www.gstatic.com/firebasejs/3.8.0/firebase.js"></script>
   <script src = "js/jquery-3.1.1.min.js"></script>
-  
+  <script src = "js/firebaseapp.js"></script>
 </head>
 
 <body>
@@ -14,7 +15,7 @@
     <div id="header">
       <div id="logo">
         <div id="logo_text">
-          <h1><a href="index.html">E - <span class="logo_colour">MTracker</span></a></h1>
+          <h1><a href="#">E - <span class="logo_colour">MTracker</span></a></h1>
           <h2>A maintenance and repairs Tracker.</h2>
         </div>
       </div>
@@ -64,7 +65,7 @@ Email: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="email" id ="email" placeholder
     </div>
   </div>
 <script>
- 
+
  function signin(){
  var Email = document.getElementById("email")
  var Password = document.getElementById("password")
@@ -72,15 +73,37 @@ Email: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="email" id ="email" placeholder
  var password = Password.value;
 
  if(email.length > 5 && password.length > 3){
- alert("not ready")
+ firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+  // Handle Errors here.
+  var errorCode = error.code;
+  var errorMessage = error.message;
+  alert(errorMessage)
+  // ...
+});
+
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    // User is signed in.
+   window.location = "/"
+    var uid = user.uid;
+    // ...
+	alert("Signed in")
+	console.log(firebase.auth().currentUser)
+  } else {
+    // User is signed out.
+    // ...
+	alert("Signed Out")
+  }
+});
  
- }else{
+ } else{
  
- alert("ready")
+ alert("Not ready")
  }
  
  
  }
+
   </script>
 </body>
 </html>
