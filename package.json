@@ -4,7 +4,7 @@
   "description": "A system to allow reporting of maintenance and repairs request, to track the maintenance process and escalate unusual delays.",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js"
   },
   "author": "Philips Blessing",
   "license": "ISC",
