@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>E -MDashboard</title>
+  <title>E -Maintenance</title>
   <link rel="stylesheet" type="text/css" href="css/style.css" />
   <link rel="stylesheet" type="text/css" href="css/style.css" />
   <script src="https://www.gstatic.com/firebasejs/3.8.0/firebase.js"></script>
@@ -64,13 +64,13 @@
       </div>
       <div id="menubar">
         <ul id="menu">
-          <li class="selected"><a href="#">Home</a></li>
+          <li><a href="#">Home</a></li>
 		  <span id = "adminmenu"> 
-		  <li><a href="/maintenance">Maintenance Requests</a></li>
+		  <li class="selected"><a href="/maintenance">Maintenance Requests</a></li>
           <li><a href="/signup">Staffs</a></li>
 		  </span>
 		  <span id = "staffmenu">
-		  <li><a href="/maintenance">Report a Maintenance</a></li>
+		  <li class="selected"><a href="/maintenance">Report a Maintenance</a></li>
           <li><a href="/signup">Notifications(0)</a></li>
 		  </span>
           <li><a href = "#" onclick = "signOut()">Sign Out</a></li>
@@ -82,18 +82,84 @@
     <div id="site_content">
       
       <div id="content">
-	  <div id = "adminwelcome" class = "welcomemsg">
-       Welcome Admin to E-MTracker, as admin you can:
-	   view all maintenance / repairs requests <br>
-	   can approve/reject a repair/maintenance request and also provide comments. <br>
-	   add names and contacts (phone number) for the people doing maintenance. 
-	   </div>
-	   
-	   <div id = "staffwelcome" class = "welcomemsg">
-       Welcome Staff to E-MTracker, as staff you can:
-	   view all maintenance / repairs requests <br>
-	   can approve/reject a repair/maintenance request and also provide comments. <br>
-	   add names and contacts (phone number) for the people doing maintenance. 
+	  <div id = "staffcon">
+	  <div id = "mainreq">
+	  <!-- Trigger/Open The Modal -->
+<button id="myBtn">Request a Repair</button>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="close">&times;</span>
+      <div style="padding: 20px">Create Repair Request</div>
+    </div>
+	<div class = "reqinner">
+    <div class="modal-body">
+	<br>
+	<label><b>Equipment name/no:<b></label> <br>
+	<input type = "text" id = "equpid"> 
+	
+	<br>
+	<br>
+	<label><b>Description:</b></label>
+	<br>
+	<input type = "text" id = "description"> 
+	<br>
+	<br>
+	<label><b>Detailed Information: </b></label>
+	<br>
+	<textarea></textarea> 
+	<br>
+	<br>
+	<label><b>Department: </b></label> <br>
+	<input type = "text" id = "equpid"> 
+	<br>
+	<br>
+	<label><b>Upload a Picture(optional) </b></label> <br>
+	<br>
+	<input type ="file">
+	<br>
+	<br>
+	<button id="myBtn2">Create Request</button>
+	<br>
+	<br>
+    </div>
+	</div>
+    
+  </div>
+
+</div>
+
+	  
+	  
+	  </div>
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  </div>
+	  
+	  <div id = "admincon">
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  </div>
+	  
 	   </div>
 	   <br>
 	   <br>
@@ -152,5 +218,33 @@
 });
 
   </script>
+  
+  <script>
+// Get the modal
+var modal = document.getElementById('myModal');
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks the button, open the modal 
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+</script>
 </body>
 </html>

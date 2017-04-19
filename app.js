@@ -21,6 +21,10 @@ router.get("/dashboard",function(req,res){
 	res.sendFile(viewpath + "dashboard.html")
 })
 
+router.get("/maintenance",function(req,res){
+	res.sendFile(viewpath + "maintenance.html")
+})
+
 router.get("/mainrequest",function(req,res){
 	res.sendFile(viewpath + "mainrequest.html")
 })
