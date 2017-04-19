@@ -406,6 +406,7 @@ font-size:1em;
 .btn:hover{
   background:#4C4C4C; 
 }
+
 #btn2{
   float:left;
   
@@ -438,5 +439,11 @@ font-size:0.8em;
 #btn2:hover{ 
 background:#3594D2; 
 }
+
+#verifiy{
+font-size: 3em;
+
+}
+
 
 

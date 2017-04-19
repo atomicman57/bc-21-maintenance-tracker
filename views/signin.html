@@ -4,9 +4,12 @@
 <head>
   <title>E - Maintenance</title>
   <link rel="stylesheet" type="text/css" href="css/style.css" />
+  <script src = "js/jquery-3.1.1.min.js"></script>
+  
 </head>
 
 <body>
+
   <div id="main">
     <div id="header">
       <div id="logo">
@@ -37,13 +40,13 @@
 <h1 class = "headin">LOG IN</h1>
 <br>
 
-Email: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="email" name="email" placeholder="Email"  class="email" />
+Email: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="email" id ="email" placeholder="Email"  class="email" />
   
-<br>Password: <input type="password" name="email" placeholder="password"  class="email" />
+<br>Password: <input type="password" id="password" placeholder="password"  class="email" />
  <br> 
  <br> 
  <br> 
-<button class="btn">Sign In</button>
+<button class="btn" onclick = "signin()">Sign In</button>
 </div>
 </div>
 </div>
@@ -60,6 +63,24 @@ Email: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="email" name="email" placeholde
       <p>Copyright &copy; E-MTracker 2017 </p>
     </div>
   </div>
+<script>
+ 
+ function signin(){
+ var Email = document.getElementById("email")
+ var Password = document.getElementById("password")
+ var email = Email.value;
+ var password = Password.value;
 
+ if(email.length > 5 && password.length > 3){
+ alert("not ready")
+ 
+ }else{
+ 
+ alert("ready")
+ }
+ 
+ 
+ }
+  </script>
 </body>
 </html>

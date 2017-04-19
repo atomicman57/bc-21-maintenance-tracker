@@ -4,6 +4,9 @@
 <head>
   <title>E - Maintenance</title>
   <link rel="stylesheet" type="text/css" href="css/style.css" />
+  <script src="https://www.gstatic.com/firebasejs/3.8.0/firebase.js"></script>
+  <script src = "js/jquery-3.1.1.min.js"></script>
+  <script src = "js/firebaseapp.js"></script>
 </head>
 
 <body>
@@ -29,8 +32,8 @@
     <div id="content_header"></div>
     <div id="site_content">
       
-      <div id="loginform">
-        <div id = "logininner">
+      <div id="signupform">
+        <div id = "sigupinner">
 		
 		
 	
@@ -38,17 +41,17 @@
 <div class = "boxcon">
 <h1 class = "headin">SIGN UP</h1>
 <br>
-Full name: &nbsp&nbsp<input type="email" name="fullname" placeholder="Full name"  class="email" />
+Full name: &nbsp&nbsp<input type="email" id="fullName" placeholder="Full name"  class="email" />
 <br>
-Username: &nbsp&nbsp<input type="text" name="username" placeholder="Username"  class="email" />
+Username: &nbsp&nbsp<input type="text" id="username" placeholder="Username"  class="email" />
 <br>
-Email: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" name="email" placeholder="email"  class="email" />
+Email: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" id="email" placeholder="Email"  class="email" />
   
-<br>Password: &nbsp&nbsp <input type="password" name="email" placeholder="password"  class="email" />
+<br>Password: &nbsp&nbsp <input type="password" id="password" placeholder="password"  class="email" />
  <br> 
  <br> 
  <br> 
-<button type = "button" class="btn">Sign Up</button>
+<button onclick = "signup()" id = "btn" class="btn">Sign Up</button>
 
   </div>
 </div>
@@ -57,6 +60,8 @@ Email: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" name="ema
 		</div>
     
       </div>
+	  
+<p id = "verifiy"></p>
     </div>
     <div id="content_footer"></div>
     <div id="footer">
@@ -64,5 +69,59 @@ Email: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" name="ema
       <p>Copyright &copy; E-MTracker 2017 </p>
     </div>
   </div>
+  <script>
+  function hidesignup(){
+	  $("#signupform").hide();
+	  }
+    
+	function verifymsg(){
+	var msg = "Your Registration on E-MTracker was successful, " 
+	var msg2 = "A verification mail have been sent to you, " 
+	var msg3 = "check your mail to verify your account. After Verification you can login"
+	  $("#verifiy").append(msg + msg2 + msg3);
+	  }
+	  
+	  
+  function signup(){
+ var Email = document.getElementById("email")
+ var Password = document.getElementById("password")
+ var fullName = document.getElementById("fullName").value
+ var username = document.getElementById("username").value
+ var email = Email.value;
+ var password = Password.value;
+var handleerror = "";
+ if(email.length > 5 && password.length > 3 && fullName.length > 5 && username.length > 4){
+ firebase.auth().createUserWithEmailAndPassword(email, password).then(function(value) {
+				firebase.auth().onAuthStateChanged(function(user) {
+				user.sendEmailVerification(); 
+				// if signup is sucessful hide signup
+				hidesignup()
+				verifymsg()
+				
+				
+    });
+                
+                }).catch(function(error) {
+                    var errorCode = error.code;
+					var errorMessage = error.message;
+					alert(errorMessage)
+                });
+
+
+ 
+
+
+ }}
+ 
+ //Your Registration on E-MTracker was successful, A verification mail have been sent to you, check your mail to verify your account 
+
+
+
+ 
+
+  </script>
+</body>
 </body>
 </html>
+
+
