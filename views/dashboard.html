@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <title>E -MDasboard</title>
+  <link rel="stylesheet" type="text/css" href="css/style.css" />
+  <link rel="stylesheet" type="text/css" href="css/style.css" />
+  <script src="https://www.gstatic.com/firebasejs/3.8.0/firebase.js"></script>
+  <script src = "js/jquery-3.1.1.min.js"></script>
+  <script src = "js/firebaseapp.js"></script>
+</head>
+
+<body>
+  <div id="main">
+    <div id="header">
+      <div id="logo">
+        <div id="logo_text">
+          <h1><a href="index.html">E - <span class="logo_colour">MTracker</span></a></h1>
+          <h2>A maintenance and repairs Tracker.</h2>
+        </div>
+      </div>
+      <div id="menubar">
+        <ul id="menu">
+          <li class="selected"><a href="#">Home</a></li>
+		  <span class = "adminmenu"> 
+		  <li><a href="/signin">Maintenance Requests</a></li>
+          <li><a href="/signup">Staffs</a></li>
+		  </span>
+          <li><a href = "#" onclick = "signOut()">Sign Out</a></li>
+        
+        </ul>
+      </div>
+    </div>
+    <div id="content_header"></div>
+    <div id="site_content">
+      
+      <div id="content">
+       Welcome Admin to E-MTracker, as admin you can:
+	   view all maintenance / repairs requests <br>
+	   can approve/reject a repair/maintenance request and also provide comments. <br>
+	   add names and contacts (phone number) for the people doing maintenance.
+      
+		
+        
+      </div>
+    </div>
+    <div id="content_footer"></div>
+    <div id="footer">
+       
+      <p>Copyright &copy; E-MTracker 2017 </p>
+    </div>
+  </div>
+  <script>
+  function signOut(){
+  firebase.auth().signOut().then(function() {
+  window.location = "/"
+  console.log('Signed Out');
+}, function(error) {
+  console.error('Sign Out Error', error);
+  window.location = "/"
+});
+  }
+  </script>
+</body>
+</html>

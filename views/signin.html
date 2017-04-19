@@ -84,7 +84,7 @@ Email: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="email" id ="email" placeholder
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     // User is signed in.
-   window.location = "/"
+   window.location = "/dashboard"
     var uid = user.uid;
     // ...
 	alert("Signed in")

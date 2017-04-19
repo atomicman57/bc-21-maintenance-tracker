@@ -17,6 +17,13 @@ router.get("/signup",function(req,res){
 	res.sendFile(viewpath + "signup.html")
 })
 
+router.get("/dashboard",function(req,res){
+	res.sendFile(viewpath + "dashboard.html")
+})
+
+router.get("/mainrequest",function(req,res){
+	res.sendFile(viewpath + "mainrequest.html")
+})
 
 router.get("*",function(req,res){
 	res.send("404 not found")
