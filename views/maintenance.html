@@ -8,6 +8,148 @@
   <script src="https://www.gstatic.com/firebasejs/3.8.0/firebase.js"></script>
   <script src = "js/jquery-3.1.1.min.js"></script>
   <script src = "js/firebaseapp.js"></script>
+   <script>
+  function signOut(){
+  firebase.auth().signOut().then(function() {
+  window.location = "/signin"
+  console.log('Signed Out');
+}, function(error) {
+  console.error('Sign Out Error', error);
+  window.location = "/"
+});
+  }
+  
+ firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    // User is signed in.
+    var uid = user.uid;
+  } else {
+	window.location = "/"
+  }
+});
+
+  </script>
+  
+  <script>
+  function loadreq(){
+   
+  firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+ 
+  var dbref = firebase.database().ref("requests")
+  var user = firebase.auth().currentUser;
+  var usertoken = user.uid;
+  
+  dbref.child(usertoken).on('value', function(snapshot) {
+  var data = snapshot.val();
+   $("table #tbl").remove();
+  for(prop in data){
+  var markup = "<tr id = 'tbl'><td>" + data[prop]['equipment'] + "</td><td>" + data[prop]['description'] + "</td><td>" + data[prop]['details'] + "</td><td>" + data[prop]['date'] + "</td><td>" + data[prop]['status'] + "</td><td>" + data[prop]['comment'] + "</td></tr>";
+           $("table").append(markup);
+          
+		   
+		   
+  }
+});
+}
+})
+ 
+  }
+  
+   
+  
+   function createrep(){
+  var equip = $("#equpid").val()
+  var describe = $("#description").val()
+  var detail = $("#detail").val()
+  var depart = $("#department").val()
+  var d = new Date;
+  var today = d.getFullYear() + '/' + ('0'+(d.getMonth()+1)).slice(-2) + '/' + ('0'+d.getDate()).slice(-2);
+  var dbref = firebase.database().ref("requests")
+  var user = firebase.auth().currentUser;
+  var userId = user.uid;
+  var dbkey = dbref.child(userId).push().key;
+  dbref.child(userId).child(dbkey).update({
+  equipment: equip,
+  description: describe,
+  details: detail,
+  date: today,
+  status: "pending",
+  comment: "none",
+  department: depart,
+  approved: "false",
+  reject: "false",
+  assigned: "none",
+  akey: dbkey 
+  });
+
+  alert("Your Request Have been Created")
+  $("#equpid").val("")
+  $("#description").val("")
+  $("#detail").val("")
+  $("#department").val("")
+  
+  
+  }
+  
+
+  function adminloadreq(){
+   
+  firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+  var dbref = firebase.database().ref("requests")
+  dbref.on('value', function(snapshot) {
+  var data = snapshot.val();
+  console.log(snapshot.val());
+  for(prop in data){
+  ndata = data[prop]
+  for(nprop in ndata){
+  //console.log(ndata.key())
+  
+  var markup = "<tr id = 'tbl'><td>" + ndata[nprop]['equipment'] + "</td><td>" + ndata[nprop]['description'] + "</td><td>" + ndata[nprop]['details'] + "</td><td>" + ndata[nprop]['date'] + "</td><td>" + ndata[nprop]['status'] + "</td><td>" + ndata[nprop]['comment'] + "</td><td>" + ndata[nprop]['department'] + "</td></tr>";
+  var markup2 = "<td><button id = 'approve' onclick = 'approve()' class = 'action'> Approve</button><br><br></td>" 
+  var markup3 = "<td><button id = 'reject'  class = 'action'> Reject</button><br><br></td>" 
+  var markup4 = "<td><button id = 'Assign' class = 'action'>Add Repairer</button><br><br></td>" 
+  var markup5 = "<td><button id = 'comment' class = 'action'> Add Comment</button><br><br></td></tr>"
+  //var markup6 = "<input type = 'hidden' value = n
+  var markupi;
+  if (ndata[nprop]['approve'] == "true"){
+  markupi = markup4 + markup5
+  } else if(ndata[nprop]['reject'] == "true"){
+  markupi = markup5
+  }
+  else{
+  markupi = markup2 + markup3+ markup5
+  }
+  
+ 
+   $("table").append(markup,markupi);
+  }
+  	   
+  }
+});
+}
+})
+ 
+ 
+ 
+  }
+
+function approve(){
+ var user = firebase.auth().currentUser;
+  var usertoken = user.uid;
+//firebase.database().ref("requests").child(usertoken).child.("akey").update({
+//status: "approved"
+//approve: "true",
+//})
+}
+  
+  
+   
+  
+  </script>
+
+  
   <script>
   
   function admin(){
@@ -38,8 +180,10 @@
 	var level = userdetail["level"];
 	if(level == 2){
 	admin()
+	adminloadreq()
 	} else{
 	staff()
+	loadreq()
 	}
 	
 	});
@@ -51,6 +195,26 @@
   });
   
 
+
+
+$("#fileupload").on("change", function(event){
+var selectedFile = event.target.files[0];
+alert(selectedFile)
+});
+
+
+
+
+
+
+function upload(){
+var storageRef = firebase.storage().ref("/reqimages/");
+var filename = selectedFile
+
+
+
+
+}
   </script>
 </head>
 
@@ -69,11 +233,11 @@
           <li><a href="/dashboard">Home</a></li>
 		  <span id = "adminmenu"> 
 		  <li class="selected"><a href="/maintenance">Maintenance Requests</a></li>
-          <li><a href="/signup">Staffs</a></li>
+          <!--<li><a href="/signup">Staffs</a></li> -->
 		  </span>
 		  <span id = "staffmenu">
 		  <li class="selected"><a href="/maintenance">Maintenance Requests</a></li>
-          <li><a href="/signup">Notifications(0)</a></li>
+          <li><a href="#">Notifications(0)</a></li>
 		  </span>
           <li><a href = "#" onclick = "signOut()">Sign Out</a></li>
         
@@ -81,9 +245,9 @@
       </div>
     </div>
     <div id="content_header"></div>
-    <div id="site_content">
+    <div id="site_content" >
       
-      <div id="content">
+      <div id="content" style = "width:100%">
 	  <div id = "staffcon">
 	  <div id = "mainreq">
 	  <!-- Trigger/Open The Modal -->
@@ -125,6 +289,7 @@
 	<label><b>Upload a Picture(optional) </b></label> <br>
 	<br>
 	<input type ="file" id = "fileupload">
+	<button id = "uploadbtn" onclick = "upload()">Upload</button>
 	<br>
 	<br>
 	<button id="myBtn2" onclick = "createrep()">Create Request</button>
@@ -192,18 +357,18 @@
 	  </div>
 	  
 	  <div id = "admincon">
-	  <h1> All Maintenance Request </h1> 
+	  <div id ="head2"> All Maintenance Request </div> 
 	  <div class = "tab" id = "admintable">
 
 <table>
   <tr>
-    <th>Equipment name/no</th>
+	<th>Equipment name/no</th>
     <th>Description</th>
     <th>Details</th>
-    <th>Edit Comment</th>
-    <th>Request by</th>
-    <th>Edit Status</th>
-    <th>Assign</th>
+    <th>Date Requested</th>
+    <th>Status</th>
+	<th>Comment</th>
+	<th>Department</th>
   </tr>
 
 </tr>
@@ -247,7 +412,7 @@
 	   </form>
       
 		
-        
+     
       </div>
     </div>
     <div id="content_footer"></div>
@@ -256,86 +421,7 @@
       <p>Copyright &copy; E-MTracker 2017 </p>
     </div>
   </div>
-  <script>
-  function signOut(){
-  firebase.auth().signOut().then(function() {
-  window.location = "/signin"
-  console.log('Signed Out');
-}, function(error) {
-  console.error('Sign Out Error', error);
-  window.location = "/"
-});
-  }
-  
- firebase.auth().onAuthStateChanged(function(user) {
-  if (user) {
-    // User is signed in.
-    var uid = user.uid;
-  } else {
-	window.location = "/"
-  }
-});
-
-  </script>
-  
-  <script>
-  function loadreq(){
    
-  firebase.auth().onAuthStateChanged(function(user) {
-  if (user) {
-  var dbref = firebase.database().ref("requests")
-  var user = firebase.auth().currentUser;
-  var usertoken = user.uid;
-  dbref.child(usertoken).on('value', function(snapshot) {
-  var data = snapshot.val();
-  $("table #tbl").remove();
-  for(prop in data){
-  console.log(data[prop]["details"] + data[prop]['equipment'])
-  
-  var markup = "<tr id = 'tbl'><td>" + data[prop]['equipment'] + "</td><td>" + data[prop]['description'] + "</td><td>" + data[prop]['details'] + "</td><td>" + data[prop]['date'] + "</td><td>" + data[prop]['status'] + "</td><td>" + data[prop]['comment'] + "</td></tr>";
-           $("table").append(markup);
-          
-		   
-		   
-  }
-});
-}
-})
- 
-  }
-  
-   
-  loadreq()
-   function createrep(){
-  var equip = $("#equpid").val()
-  var describe = $("#description").val()
-  var detail = $("#detail").val()
-  var depart = $("#department").val()
-  var today = d.getFullYear() + '/' + ('0'+(d.getMonth()+1)).slice(-2) + '/' + ('0'+d.getDate()).slice(-2);
-  var dbref = firebase.database().ref("requests")
-  var user = firebase.auth().currentUser;
-  var userId = user.uid;
-  dbref.child(userId).push({
-  equipment: equip,
-  description: describe,
-  details: detail,
-  date: today,
-  status: "pending",
-  comment: "none",
-  department: depart
-  })
-  
-  }
-  
-var d = new Date();
-
-
-  
-  
-   
-  
-  </script>
-  
   
   
   <script>
@@ -392,6 +478,9 @@ window.onclick = function(event) {
         modal2.style.display = "none";
     }
 }
+
+
+
 
 
 </script>
