@@ -2,308 +2,323 @@
 <html>
 
 <head>
-    <title>E -Maintenance</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css" />
-	<link href="images/favicon.ico" rel="icon"/>
-    <script src="https://www.gstatic.com/firebasejs/3.8.0/firebase.js"></script>
-    <script src="js/jquery-3.1.1.min.js"></script>
-    <script src="js/firebaseapp.js"></script>
+  <title>E -Maintenance</title>
+  <link rel="stylesheet" type="text/css" href="css/style.css" />
+  <link href="images/favicon.ico" rel="icon" />
+  <script src="https://www.gstatic.com/firebasejs/3.8.0/firebase.js"></script>
+  <script src="js/jquery-3.1.1.min.js"></script>
+  <script src="js/firebaseapp.js"></script>
 
 </head>
 
 <body>
-    <script src="js/maintenance.js"></script>
-    <div id="main">
-        <div id="header">
-            <div id="logo">
-                <div id="logo_text">
-                    <h1><a href="index.html">E - <span class="logo_colour">MTracker</span></a></h1>
-                    <h2>A maintenance and repairs Tracker.</h2>
-                </div>
-            </div>
-            <div id="menubar">
-                <ul id="menu">
-                    <span id="adminmenu1"> 
+  <script src="js/maintenance.js"></script>
+  <div id="main">
+    <div id="header">
+      <div id="logo">
+        <div id="logo_text">
+          <h1><a href="index.html">E - <span class="logo_colour">MTracker</span></a></h1>
+          <h2>A maintenance and repairs Tracker.</h2>
+        </div>
+      </div>
+      <div id="menubar">
+        <ul id="menu">
+          <span id="adminmenu1"> 
 		 
 		 <li style = ""><a><font size = "4"><b>Admin Dashboard</b></font></a></li>
 		 </span>
-                    <span id="staffmenu1"> 
+          <span id="staffmenu1"> 
 		 
 		 <li style = ""><a><font size = "4"><b>Staff Dashboard</b></font></a></li>
 		 </span>
-                    <li><a href="/dashboard">Home</a></li>
-                    <span id="adminmenu"> 
+          <li><a href="/dashboard">Home</a>
+          </li>
+          <span id="adminmenu"> 
 		  <li class="selected"><a href="/maintenance">Maintenance Requests</a></li>
           
 		  </span>
-                    <span id="staffmenu">
+          <span id="staffmenu">
 		  <li class="selected"><a href="/maintenance">Maintenance Requests</a></li>
-          <li><a href="#" id = "myBtn4">Notifications<span id = "notiff"></span></a>
-                    </li>
-                    </span>
-                    <li><a href="#" onclick="signOut()">Sign Out</a></li>
+          <li><a href="#" id = "myBtn4">Notifications<span id = "notiff"></span>
+          </a>
+          </li>
+          </span>
+          <li><a href="#" onclick="signOut()">Sign Out</a>
+          </li>
 
-                </ul>
-            </div>
-        </div>
-        <div id="content_header"></div>
-        <div id="site_content">
+        </ul>
+      </div>
+    </div>
+    <div id="content_header"></div>
+    <div id="site_content">
 
-            <div id="content" style="width:100%">
-                <div id="staffcon">
-                    <div id="mainreq">
-                        <!-- Trigger/Open The Modal -->
-                        <button id="myBtn">Click here to Create Request</button>
-                        <br>
+      <div id="content" style="width:100%">
+        <div id="staffcon">
+          <div id="mainreq">
+            <!-- Trigger/Open The Modal -->
+            <button id="myBtn">Click here to Create Request</button>
+            <br>
 
 
-                        <!-- The Modal -->
-                        <div id="myModal" class="modal">
+            <!-- The Modal -->
+            <div id="myModal" class="modal">
 
-                            <!-- Modal content -->
-                            <div class="modal-content modal2">
-                                <div class="modal-header">
-                                    <span class="close">&times;</span>
-                                    <div style="padding: 20px">Create Repair Request</div>
-                                </div>
-                                <div class="reqinner">
-                                    <div class="modal-body">
-                                        <br>
-                                        <div id="reqmodal">
-                                            <label><b>Equipment/Gadget name/no:<b></label> <br>
+              <!-- Modal content -->
+              <div class="modal-content modal2">
+                <div class="modal-header">
+                  <span class="close">&times;</span>
+                  <div style="padding: 20px">Create Repair Request</div>
+                </div>
+                <div class="reqinner">
+                  <div class="modal-body">
+                    <br>
+                    <div id="reqmodal">
+                      <label><b>Equipment/Gadget name/no:<b></label> <br>
                                             <input type="text" id="equpid">
 
                                             <br>
                                             <br>
-                                            <label><b>Equipment/Gadget Description:</b></label>
-                                            <br>
-                                            <input type="text" id="description">
-                                            <br>
-                                            <br>
-                                            <label><b>Fault/problem Details: </b></label>
-                                            <br>
-                                            <textarea id="detail"></textarea>
-                                            <br>
-                                            <br>
-                                            <label><b>Department: </b></label> <br>
-                                            <input type="text" id="department">
-                                            <br>
-                                            <br>
-                                            <label><b>Upload a Picture(optional) </b></label> <br>
-                                            <br>
-                                            <input type="file" id="file">
-                                            <button id="uploadbtn" onclick="fileUpload()">Upload</button>
-                                            <br>
-                                            <br>
-                                            <button id="myBtn2" onclick="createRequest()">Create Request</button>
-                                            <br>
-                                            <br>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
-
-
-                        <button id="myBtn3">Click here to View Your Requests</button>
-
-
-                        <div id="myModal2" class="modal">
-
-                            <!-- Modal content -->
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <span class="close">&times;</span>
-                                    <div style="padding: 20px">Your Requests</div>
-                                </div>
-                                <div class="reqinner">
-                                    <div class="modal-body">
-                                        <br>
-                                        <h1> Your Maintenance Request </h1>
-                                        <div class="tab" id="table">
-
-                                            <table>
-                                                <tr>
-                                                    <th>Equipment name/no</th>
-                                                    <th>Description</th>
-                                                    <th>Details</th>
-                                                    <th>Date Requested</th>
-                                                    <th>Status</th>
-                                                    <th>Comment(by admin)</th>
-
-                                                </tr>
-
-                                                </tr>
-                                            </table>
-                                        </div>
-                                        <br>
-                                        <br>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        </div>
-
+                                            <label><b>Equipment/Gadget Description:</b>
+                      </label>
+                      <br>
+                      <input type="text" id="description">
+                      <br>
+                      <br>
+                      <label><b>Fault/problem Details: </b>
+                      </label>
+                      <br>
+                      <textarea id="detail"></textarea>
+                      <br>
+                      <br>
+                      <label><b>Department: </b>
+                      </label>
+                      <br>
+                      <input type="text" id="department">
+                      <br>
+                      <br>
+                      <label><b>Upload a Picture(optional) </b>
+                      </label>
+                      <br>
+                      <br>
+                      <input type="file" id="file" accept="image/*">
+                      <button id="uploadbtn" onclick="fileUpload()">Upload</button>
+                      <p id="uploadprogress"></p>
+                      <button id="myBtn2" onclick="createRequest()">Create Request</button>
+                      <br>
+                      <br>
+                      <br>
+                      <br>
+                      <br>
+                      <br>
+                      <br>
+                      <br>
                     </div>
-
+                  </div>
                 </div>
-
-                <div id="admincon">
-                    <div id="head2"> All Maintenance Request </div>
-                    <div class="tab" id="admintable">
-
-                        <table>
-                            <tr>
-                                <th>Equipment name/no</th>
-                                <th>Description</th>
-                                <th>Details</th>
-                                <th>Date Requested</th>
-                                <th>Status</th>
-                                <th>Comment</th>
-                                <th>Department</th>
-                            </tr>
-
-                            </tr>
-                        </table>
-                    </div>
-
-
-
-
-
-                </div>
+              </div>
 
             </div>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <!-- The Modal -->
-            <div id="myModal3" class="modal">
 
-                <!-- Modal content -->
-                <div class="modal-content modal3">
-                    <div class="modal-header">
-                        <span class="close">&times;</span>
-                        <div style="padding: 20px">Notifications</div>
+
+
+            <button id="myBtn3">Click here to View Your Requests</button>
+
+
+            <div id="myModal2" class="modal">
+
+              <!-- Modal content -->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <span class="close">&times;</span>
+                  <div style="padding: 20px">Your Requests</div>
+                </div>
+                <div class="reqinner">
+                  <div class="modal-body">
+                    <br>
+                    <h1> Your Maintenance Request </h1>
+                    <div class="tab" id="table">
+
+                      <table>
+                        <tr>
+                          <th>Equipment name/no</th>
+                          <th>Description</th>
+                          <th>Details</th>
+                          <th>Date Requested</th>
+                          <th>Status</th>
+                          <th>Comment(by admin)</th>
+
+                        </tr>
+
+                        </tr>
+                      </table>
                     </div>
-                    <div class="reqinner">
-                        <div class="modal-body">
-                            <br>
-                            <p id="notify"></p>
-                        </div>
-                    </div>
+                    <br>
+                    <br>
+                  </div>
                 </div>
 
+              </div>
+
             </div>
+
+          </div>
+
+        </div>
+
+        <div id="admincon">
+          <div id="head2"> All Maintenance Request </div>
+          <div class="tab" id="admintable">
+
+            <table>
+              <tr>
+                <th>Equipment name/no</th>
+                <th>Description</th>
+                <th>Details</th>
+                <th>Date Requested</th>
+                <th>Status</th>
+                <th>Comment</th>
+                <th>Department</th>
+              </tr>
+
+              </tr>
+            </table>
+          </div>
+
+
 
 
 
         </div>
+
+      </div>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <!-- The Modal -->
+      <div id="myModal3" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content modal3">
+          <div class="modal-header">
+            <span class="close">&times;</span>
+            <div style="padding: 20px">Notifications</div>
+          </div>
+          <div class="reqinner">
+            <div class="modal-body">
+              <br>
+              <p id="notify"></p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+
     </div>
-    <div id="content_footer"></div>
-    <div id="footer">
+  </div>
+  <div id="content_footer"></div>
+  <div id="footer">
 
-        <p>Copyright &copy; E-MTracker 2017 </p>
-    </div>
-    </div>
-    <script>
-       
+    <p>Copyright &copy; E-MTracker 2017 </p>
+  </div>
+  <input type="hidden" id="downloadurlbox" value="none">
+  <script>
+    // View Request Modal
+    let modal2 = document.getElementById('myModal2');
+
+    let btn2 = document.getElementById("myBtn3");
+
+    let span = document.getElementsByClassName("close")[1];
+
+    btn2.onclick = function() {
+      modal2.style.display = "block";
+    }
+
+    span.onclick = function() {
+      modal2.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+      if (event.target == modal2) {
+        modal2.style.display = "none";
+      }
+    }
 
 
 
-        // View Request Modal
-        let modal2 = document.getElementById('myModal2');
 
-        let btn2 = document.getElementById("myBtn3");
+    // This is for Create request Modal
+    let modal = document.getElementById('myModal');
 
-        let span = document.getElementsByClassName("close")[1];
 
-        btn2.onclick = function() {
-            modal2.style.display = "block";
+    let btn = document.getElementById("myBtn");
+
+    let span2 = document.getElementsByClassName("close")[0];
+
+    btn.onclick = function() {
+      modal.style.display = "block";
+    }
+
+    span2.onclick = function() {
+      modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+
+
+    // This is for the notification Modal 
+    let modal3 = document.getElementById('myModal3');
+
+    let btn3 = document.getElementById("myBtn4");
+
+    let span3 = document.getElementsByClassName("close")[2];
+
+    btn3.onclick = function() {
+      modal3.style.display = "block";
+      firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+          let userId = firebase.auth().currentUser.uid;
+          firebase.database().ref("notify").child(userId).set({
+            notify: 0
+          })
         }
-
-        span.onclick = function() {
-            modal2.style.display = "none";
-        }
-
-        window.onclick = function(event) {
-            if (event.target == modal2) {
-                modal2.style.display = "none";
-            }
-        }
+      })
+    }
 
 
+    span3.onclick = function() {
+      modal3.style.display = "none";
+    }
 
-
-        // This is for Create request Modal
-        let modal = document.getElementById('myModal');
-
-
-        let btn = document.getElementById("myBtn");
-
-        let span2 = document.getElementsByClassName("close")[0];
-
-        btn.onclick = function() {
-            modal.style.display = "block";
-        }
-
-        span2.onclick = function() {
-            modal.style.display = "none";
-        }
-
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-
-
-        // This is for the notification Modal 
-        let modal3 = document.getElementById('myModal3');
-
-        let btn3 = document.getElementById("myBtn4");
-
-        let span3 = document.getElementsByClassName("close")[2];
-
-        btn3.onclick = function() {
-            modal3.style.display = "block";
-            firebase.database().ref("notify").set({
-                notify: 0
-            })
-
-        }
-
-        span3.onclick = function() {
-            modal3.style.display = "none";
-        }
-
-        window.onclick = function(event) {
-            if (event.target == modal3) {
-                modal3.style.display = "none";
-            }
-        }
-    </script>
+    window.onclick = function(event) {
+      if (event.target == modal3) {
+        modal3.style.display = "none";
+      }
+    }
+  </script>
 
 
 

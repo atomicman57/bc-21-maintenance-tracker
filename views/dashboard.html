@@ -2,135 +2,148 @@
 <html>
 
 <head>
-    <title>E -MDashboard</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css" />
-	<link href="images/favicon.ico" rel="icon"/>
-    <script src="https://www.gstatic.com/firebasejs/3.8.0/firebase.js"></script>
-    <script src="js/jquery-3.1.1.min.js"></script>
-    <script src="js/firebaseapp.js"></script>
-    <script src="js/dashboard.js"></script>
+  <title>E -MDashboard</title>
+  <link rel="stylesheet" type="text/css" href="css/style.css" />
+  <link href="images/favicon.ico" rel="icon" />
+  <script src="https://www.gstatic.com/firebasejs/3.8.0/firebase.js"></script>
+  <script src="js/jquery-3.1.1.min.js"></script>
+  <script src="js/firebaseapp.js"></script>
+  <script src="js/dashboard.js"></script>
 </head>
 
 <body>
 
-    <div id="main">
-        <div id="header">
-            <div id="logo">
-                <div id="logo_text">
-                    <h1><a href="index.html">E - <span class="logo_colour">MTracker</span></a></h1>
-                    <h2>A maintenance and repairs Tracker.</h2>
-                </div>
-            </div>
-            <div id="menubar">
-                <ul id="menu">
-                    <li style=""><a>Welcome <span id = "user"></span></a></li>
-                    <span id="adminmenu1"> 
+  <div id="main">
+    <div id="header">
+      <div id="logo">
+        <div id="logo_text">
+          <h1><a href="index.html">E - <span class="logo_colour">MTracker</span></a></h1>
+          <h2>A maintenance and repairs Tracker.</h2>
+        </div>
+      </div>
+      <div id="menubar">
+        <ul id="menu">
+          <li style=""><a>Welcome <span id = "user"></span></a>
+          </li>
+          <span id="adminmenu1"> 
 		 
 		 <li style = ""><a><font size = "4"><b>Admin Dashboard</b></font></a></li>
 		 </span>
-                    <span id="staffmenu1"> 
+          <span id="staffmenu1"> 
 		 
 		 </span>
-                    <li class="selected"><a href="#">Home</a></li>
-                    <span id="adminmenu"> 
+          <li class="selected"><a href="#">Home</a>
+          </li>
+          <span id="adminmenu"> 
 		  <li><a href="/maintenance">Maintenance Requests</a></li>
 		  </span>
-                    <span id="staffmenu">
+          <span id="staffmenu">
 		  <li><a href="/maintenance">Maintenance Requests</a></li>
           <li><a href="#" id = "myBtn4">Notifications<span id = "notiff"></a></li>
 		  </span>
-                    <li><a href="#" onclick="signOut()">Sign Out</a></li>
+          <li><a href="#" onclick="signOut()">Sign Out</a>
+          </li>
 
-                </ul>
-            </div>
-        </div>
-        <div id="content_header"></div>
-        <div id="site_content">
-
-            <div id="content">
-                <div id="adminwelcome" class="welcomemsg">
-                    Welcome Admin to E-MTracker, as admin you can: view all maintenance / repairs requests <br> can approve/reject a repair/maintenance request and also provide comments. <br> add names and contacts (phone number) for the people doing maintenance.
-                </div>
-
-                <div id="staffwelcome" class="welcomemsg">
-                    Welcome Username to Staff E-MTracker Dashboard, as staff you can: Create maintenance / repairs requests <br>
-
-                </div>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <!-- The Notification Modal -->
-                <div id="myModal3" class="modal">
-
-                    <!-- The Modal content -->
-                    <div class="modal-content modal3">
-                        <div class="modal-header">
-                            <span class="close">&times;</span>
-                            <div style="padding: 20px">Notifications</div>
-                        </div>
-                        <div class="reqinner">
-                            <div class="modal-body">
-                                <br>
-                                <p id="notify"></p>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-
-
-            </div>
-        </div>
-        <div id="content_footer"></div>
-        <div id="footer">
-
-            <p>Copyright &copy; E-MTracker 2017 </p>
-        </div>
+        </ul>
+      </div>
     </div>
-   
-   
+    <div id="content_header"></div>
+    <div id="site_content">
+
+      <div id="content">
+        <div id="adminwelcome" class="welcomemsg">
+          Welcome Admin to E-MTracker, as admin you can: view all maintenance / repairs requests
+          <br> can approve/reject a repair/maintenance request and also provide comments.
+          <br> add names and contacts (phone number) for the people doing maintenance.
+        </div>
+
+        <div id="staffwelcome" class="welcomemsg">
+          Welcome Username to Staff E-MTracker Dashboard, as staff you can: Create maintenance / repairs requests
+          <br>
+
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <!-- The Notification Modal -->
+        <div id="myModal3" class="modal">
+
+          <!-- The Modal content -->
+          <div class="modal-content modal3">
+            <div class="modal-header">
+              <span class="close">&times;</span>
+              <div style="padding: 20px">Notifications</div>
+            </div>
+            <div class="reqinner">
+              <div class="modal-body">
+                <br>
+                <p id="notify"></p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+
+
+      </div>
+    </div>
+    <div id="content_footer"></div>
+    <div id="footer">
+
+      <p>Copyright &copy; E-MTracker 2017 </p>
+    </div>
+  </div>
+
+
   <script>
-        // The Notification Modal
-        var modal3 = document.getElementById('myModal3');
+    // The Notification Modal
+    var modal3 = document.getElementById('myModal3');
 
-        var btn3 = document.getElementById("myBtn4");
+    var btn3 = document.getElementById("myBtn4");
 
-        var span = document.getElementsByClassName("close")[0];
+    var span = document.getElementsByClassName("close")[0];
 
-        btn3.onclick = function () {
-            modal3.style.display = "block";
+    btn3.onclick = function() {
+      modal3.style.display = "block";
+      firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+          let userId = firebase.auth().currentUser.uid;
+          firebase.database().ref("notify").child(userId).set({
+            notify: 0
+          })
         }
+      })
+    }
+    span.onclick = function() {
+      modal3.style.display = "none";
+    }
 
-        span.onclick = function () {
-            modal3.style.display = "none";
-        }
-
-        window.onclick = function (event) {
-            if (event.target == modal3) {
-                modal3.style.display = "none";
-            }
-        }
-    </script>
+    window.onclick = function(event) {
+      if (event.target == modal3) {
+        modal3.style.display = "none";
+      }
+    }
+  </script>
 
 
 </body>
