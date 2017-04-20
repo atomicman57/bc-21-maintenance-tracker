@@ -87,25 +87,10 @@
 	  <div id = "staffcon">
 	  <div id = "mainreq">
 	  <!-- Trigger/Open The Modal -->
-<button id="myBtn">Click to Request a Repair</button>
+<button id="myBtn">Click here to Create Request</button>
 <br>
 
-<h1> Your Maintenance Request </h1>
-<div class = "tab" id = "table">
 
-<table>
-  <tr>
-    <th>Equipment name/no</th>
-    <th>Description</th>
-    <th>Details</th>
-    <th>Comment</th>
-    <th>Request by</th>
-    <th>Status</th>
-  </tr>
-
-</tr>
-</table>
-</div>
 <!-- The Modal -->
 <div id="myModal" class="modal">
 
@@ -153,6 +138,46 @@
 </div>
 
 	  
+	  
+<button id="myBtn3">Click here to View Your Requests</button>	  
+	  
+	  
+<div id="myModal2" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <span class="close">&times;</span>
+      <div style="padding: 20px">Your Requests</div>
+    </div>
+	<div class = "reqinner">
+    <div class="modal-body">
+	<br>
+	<h1> Your Maintenance Request </h1>
+<div class = "tab" id = "table">
+
+<table>
+  <tr>
+    <th>Equipment name/no</th>
+    <th>Description</th>
+    <th>Details</th>
+    <th>Date Requested</th>
+    <th>Status</th>
+	<th>Comment(by admin)</th>
+	
+  </tr>
+
+</tr>
+</table>
+</div>
+	<br>
+	<br>
+    </div>
+	</div>
+    
+  </div>
+
+</div>
 	  
 	  </div>
 	  
@@ -254,22 +279,61 @@
   </script>
   
   <script>
+  function loadreq(){
+   
+  firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+  var dbref = firebase.database().ref("requests")
+  var user = firebase.auth().currentUser;
+  var usertoken = user.uid;
+  dbref.child(usertoken).on('value', function(snapshot) {
+  var data = snapshot.val();
+  $("table #tbl").remove();
+  for(prop in data){
+  console.log(data[prop]["details"] + data[prop]['equipment'])
+  
+  var markup = "<tr id = 'tbl'><td>" + data[prop]['equipment'] + "</td><td>" + data[prop]['description'] + "</td><td>" + data[prop]['details'] + "</td><td>" + data[prop]['date'] + "</td><td>" + data[prop]['status'] + "</td><td>" + data[prop]['comment'] + "</td></tr>";
+           $("table").append(markup);
+          
+		   
+		   
+  }
+});
+}
+})
+ 
+  }
+  
+   
+  loadreq()
    function createrep(){
   var equip = $("#equpid").val()
   var describe = $("#description").val()
   var detail = $("#detail").val()
   var depart = $("#department").val()
+  var today = d.getFullYear() + '/' + ('0'+(d.getMonth()+1)).slice(-2) + '/' + ('0'+d.getDate()).slice(-2);
   var dbref = firebase.database().ref("requests")
   var user = firebase.auth().currentUser;
-  userId = user.uid;
+  var userId = user.uid;
   dbref.child(userId).push({
   equipment: equip,
   description: describe,
   details: detail,
+  date: today,
+  status: "pending",
+  comment: "none",
   department: depart
   })
   
   }
+  
+var d = new Date();
+
+
+  
+  
+   
+  
   </script>
   
   
@@ -300,6 +364,36 @@ window.onclick = function(event) {
         modal.style.display = "none";
     }
 }
+
+
+
+// Get the modal
+var modal2 = document.getElementById('myModal2');
+
+// Get the button that opens the modal
+var btn2 = document.getElementById("myBtn3");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[1];
+
+// When the user clicks the button, open the modal 
+btn2.onclick = function() {
+    modal2.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal2.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal2) {
+        modal2.style.display = "none";
+    }
+}
+
+
 </script>
 </body>
 </html>
