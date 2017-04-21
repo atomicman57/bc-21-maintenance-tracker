@@ -5,7 +5,7 @@ function hidesignup(){
 	function verifymsg(){
 	var msg = "Your Registration on E-MTracker was successful, " 
 	var msg2 = "A verification mail have been sent to you, " 
-	var msg3 = "check your mail to verify your account. After Verification you can login"
+	var msg3 = "check your mail to verify your account. Click Sign inand you will be automatically signed in"
 	  $("#verifiy").append(msg + msg2 + msg3);
 	  }
 	  
@@ -48,7 +48,7 @@ var handleerror = "";
  }
 else{
 
-	alert("Errors, check your input")
+	alert("Errors was detected in your input - Your Password Length must be greater than 3,Full Name length must be greater than 5 and username length must be greater than 4")
 }
 
 }
