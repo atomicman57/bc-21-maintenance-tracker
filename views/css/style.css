@@ -573,3 +573,31 @@ background-color: #A9AF0C;
 font-size: 1.4em;
 }
 
+#reqmodal{
+width: 60%;
+margin: 0 20%;
+}
+#reqmodal label{
+font-size: 1.3em;
+}
+
+#reqmodal input{
+border-radius: 10px;
+width: 50%;
+padding: 5px;
+height: 15px;
+margin: 2px;
+}
+
+#reqmodal textarea{
+border-radius: 10px;
+width: 50%;
+padding: 5px;
+height: 45px;
+margin: 2px;
+}
+.modal2{
+width: 50%;
+
+}
+
