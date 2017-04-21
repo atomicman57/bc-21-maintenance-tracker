@@ -8,6 +8,7 @@ function signOut(){
 });
   }
   
+
  firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     // User is signed in.
@@ -37,10 +38,12 @@ location.reload()
    
 	
   });
- 
 
   }
   
+
+
+
   function addrepair(usertoken,akey){
 
   $(document).on('click', '.assign', function() {
@@ -89,14 +92,36 @@ alert("Please Enter an input")
   }
 });
 }
-})
+});
  
   }
 
 
+function loadnotif(){
 
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+ 
+  var dbref = firebase.database().ref("notifications")
+  var user = firebase.auth().currentUser;
+  var usertoken = user.uid;
+  
+  dbref.child(usertoken).on('value', function(snapshot) {
+  var data = snapshot.val();
+  for(prop in data){
+  var markup = "<p> "+ data[prop]["Message"] + "</p>"
+           $("#notify").append(markup);
+          
+       
+       
+  }
+});
+}
+})
 
+}
 
+loadnotif();
 
 
 
@@ -208,18 +233,45 @@ if(ndata[nprop]['resolve'] == "true"){
   }
 
 function approve(akey,usertoken){
+
+  firebase.database().ref('requests').child(usertoken).child(akey).on('value', function(snapshot) {
+  var reqdetail = snapshot.val();
+var reqname = reqdetail["equipment"]
+var reqdate = reqdetail["date"]
+
+
+
  firebase.database().ref("requests").child(usertoken).child(akey).update({
 status: "approved",
 approved: "true"
 })
+
+ firebase.database().ref("notifications").child(usertoken).push({
+Message: "Your Request on " + reqdate  + " about " + reqname +  " have been Appproved"
+})
+ });
 location.reload()
 }
 
+
+
+
 function reject(akey,usertoken){
+
+  firebase.database().ref('requests').child(usertoken).child(akey).on('value', function(snapshot) {
+  var reqdetail = snapshot.val();
+var reqname = reqdetail["equipment"]
+var reqdate = reqdetail["date"]
+
+firebase.database().ref("notifications").child(usertoken).push({
+Message: "Your Request on " + reqdate  + " about " + reqname +  " have been Rejected"
+})
+
  firebase.database().ref("requests").child(usertoken).child(akey).update({
 status: "rejected",
 reject: "true"
-})
+});
+ });
 location.reload()
 }
 
@@ -302,6 +354,7 @@ var filename = selectedFile
 
 
 }
+
 
 
 
