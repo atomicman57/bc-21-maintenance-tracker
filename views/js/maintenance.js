@@ -275,9 +275,9 @@ function adminloadRequest() {
             let approvedButton = '<td><button id = "approve" class = "action" onclick = "approve(\'' + nkey + '\',\'' + ukey + '\')"> Approve</button><br><br></td>'
             let RejectButton = '<td><button id = "reject" class = "action" onclick = "reject(\'' + nkey + '\',\'' + ukey + '\')"> Reject</button><br><br></td>'
             let addRepairerButton = '<td>Name: &nbsp&nbsp <input type = "text" class = "repairname" placeholder = "Input the name of repairer"><br> <br>Phone No: <input type = "text" class = "repairnum" placeholder = "Phone Number"><button class = "action assign" onclick = "addRepair(\'' + nkey + '\',\'' + ukey + '\')">Add Repairer</button><br><br></td>'
-            let addCommentButton = '<td><textarea placeholder = "Add Comment" class = "commentbox"></textarea><br><br><button class = "comment action" onclick = "comment(\'' + nkey + '\',\'' + ukey + '\')"> Add Comment</button><br><br></td></tr>'
+            let addCommentButton = '<td><textarea placeholder = "Add Comment" class = "commentbox"></textarea><br><br><button class = "comment action" onclick = "comment(\'' + nkey + '\',\'' + ukey + '\')"> Add Comment</button><br><br></td>'
             let resolveButton = '<td><button id = "resolve" class = "action" onclick = "resolve(\'' + nkey + '\',\'' + ukey + '\')"> Click if Resolved</button><br><br></td>'
-            let imageButton = '<td><button id = "imagebtn" class = "action" onclick = "openImage(\'' + imageUrl + '\')"> View Image</button><br><br></td>'
+            let imageButton = '<td><button id = "imagebtn" class = "action" onclick = "openImage(\'' + imageUrl + '\')"> View Image</button><br><br></td></tr>'
             let generatedButtons;
 
             if (ndata[nprop]['approved'] == "true") {
