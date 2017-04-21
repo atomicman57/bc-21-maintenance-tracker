@@ -35,11 +35,15 @@ function comment(usertoken,akey){
   $(document).on('click', '.comment', function() {
   
     var com = $(this).prevAll("textarea").val();
-	
+	if(com != ""){
 firebase.database().ref("requests").child(akey).child(usertoken).update({
 comment: com
 });
 location.reload()
+   }
+   else{
+   alert("Please Enter an input")
+   }
    
 	
   });
@@ -47,6 +51,28 @@ location.reload()
 
   }
   
+  function addrepair(usertoken,akey){
+
+  $(document).on('click', '.assign', function() {
+  
+    var name = $(this).prevAll(".repairname").val();
+    var num = $(this).prevAll(".repairnum").val();
+	if(name && num != ""){
+	firebase.database().ref("requests").child(akey).child(usertoken).update({
+assignname: name,
+assignnum: num
+});
+location.reload()
+}
+else{
+alert("Please Enter an input")
+}
+   
+	
+  });
+ 
+
+  }
   
   
   
@@ -100,7 +126,10 @@ location.reload()
   reject: "false",
   assigned: "none",
   akey: dbkey,
-  userid: userId
+  userid: userId,
+  assigned: "false",
+  assignedname: null,
+  assignednum: null
   });
 
   alert("Your Request Have been Created")
@@ -130,7 +159,7 @@ location.reload()
   var markup = "<tr id = 'tbl'><td>" + ndata[nprop]['equipment'] + "</td><td>" + ndata[nprop]['description'] + "</td><td>" + ndata[nprop]['details'] + "</td><td>" + ndata[nprop]['date'] + "</td><td>" + ndata[nprop]['status'] + "</td><td>" + ndata[nprop]['comment'] + "</td><td>" + ndata[nprop]['department'] + "</td></tr>";
   var markup2 = '<td><button id = "approve" class = "action" onclick = "approve(\'' + nkey + '\',\'' + ukey +  '\')"> Approve</button><br><br></td>' 
   var markup3 = '<td><button id = "reject" class = "action" onclick = "reject(\'' + nkey + '\',\'' + ukey +  '\')"> Reject</button><br><br></td>'
-  var markup4 = "<td>Name: &nbsp&nbsp <input type = 'text' id = 'repairname' placeholder = 'Input the name of repairer'><br> <br>Phone No: <input type = 'text' id = 'repairnum' placeholder = 'Phone Number'><button id = 'Assign' class = 'action' onclick = 'addrepair()'>Add Repairer</button><br><br></td>" 
+  var markup4 = "<td>Name: &nbsp&nbsp <input type = 'text' class = 'repairname' placeholder = 'Input the name of repairer'><br> <br>Phone No: <input type = 'text' class = 'repairnum' placeholder = 'Phone Number'><button class = 'action assign' onclick = 'addrepair()'>Add Repairer</button><br><br></td>" 
   var markup5 = '<td><textarea placeholder = "Add Comment" class = "commentbox"></textarea><br><br><button class = "comment action" onclick = "comment(\'' + nkey + '\',\'' + ukey +  '\')"> Add Comment</button><br><br></td></tr>'
   //var markup6 = "<input type = 'hidden' value = n
   var markupi;
@@ -144,6 +173,9 @@ location.reload()
   markupi = markup2 + markup3
   }
   
+  if(ndata[nprop]['comment'] != "none"){
+  markupi = markup4
+  }
  
    $("table").append(markup,markupi);
   }
