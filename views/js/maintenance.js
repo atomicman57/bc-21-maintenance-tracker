@@ -50,7 +50,8 @@ location.reload()
 	if(name != "" && num != ""){
 	firebase.database().ref("requests").child(akey).child(usertoken).update({
 assignname: name,
-assignnum: num
+assignnum: num,
+assigned: "true"
 });
 
 location.reload()
@@ -182,6 +183,10 @@ if(ndata[nprop]['comment'] != "none" && ndata[nprop]['assigned'] != "none"){
   markupi = markup6
   }
  
+if(ndata[nprop]['comment'] == "none" && ndata[nprop]['assigned'] != "none"){
+  markupi = markup5
+  }
+
  if(ndata[nprop]['reject'] == "true" && ndata[nprop]['comment'] != "none"){
   markupi = ""
   }
