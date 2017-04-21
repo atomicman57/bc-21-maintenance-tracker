@@ -4,7 +4,6 @@
 <head>
   <title>E -Maintenance</title>
   <link rel="stylesheet" type="text/css" href="css/style.css" />
-  <link rel="stylesheet" type="text/css" href="css/style.css" />
   <script src="https://www.gstatic.com/firebasejs/3.8.0/firebase.js"></script>
   <script src = "js/jquery-3.1.1.min.js"></script>
   <script src = "js/firebaseapp.js"></script>
@@ -31,6 +30,26 @@
   </script>
   
   <script>
+function comment(usertoken,akey){
+
+  $(document).on('click', '.comment', function() {
+  
+    var com = $(this).prevAll("textarea").val();
+	
+firebase.database().ref("requests").child(akey).child(usertoken).update({
+comment: com
+});
+location.reload()
+   
+	
+  });
+ 
+
+  }
+  
+  
+  
+  
   function loadreq(){
    
   firebase.auth().onAuthStateChanged(function(user) {
@@ -101,7 +120,7 @@
   var dbref = firebase.database().ref("requests")
   dbref.on('value', function(snapshot) {
   var data = snapshot.val();
-  console.log(snapshot.val());
+ // console.log(snapshot.val());
   for(prop in data){
   ndata = data[prop]
   for(nprop in ndata){
@@ -111,8 +130,8 @@
   var markup = "<tr id = 'tbl'><td>" + ndata[nprop]['equipment'] + "</td><td>" + ndata[nprop]['description'] + "</td><td>" + ndata[nprop]['details'] + "</td><td>" + ndata[nprop]['date'] + "</td><td>" + ndata[nprop]['status'] + "</td><td>" + ndata[nprop]['comment'] + "</td><td>" + ndata[nprop]['department'] + "</td></tr>";
   var markup2 = '<td><button id = "approve" class = "action" onclick = "approve(\'' + nkey + '\',\'' + ukey +  '\')"> Approve</button><br><br></td>' 
   var markup3 = '<td><button id = "reject" class = "action" onclick = "reject(\'' + nkey + '\',\'' + ukey +  '\')"> Reject</button><br><br></td>'
-  var markup4 = "<td><button id = 'Assign' class = 'action'>Add Repairer</button><br><br></td>" 
-  var markup5 = "<td><button id = 'comment' class = 'action'> Add Comment</button><br><br></td></tr>"
+  var markup4 = "<td>Name: &nbsp&nbsp <input type = 'text' id = 'repairname' placeholder = 'Input the name of repairer'><br> <br>Phone No: <input type = 'text' id = 'repairnum' placeholder = 'Phone Number'><button id = 'Assign' class = 'action' onclick = 'addrepair()'>Add Repairer</button><br><br></td>" 
+  var markup5 = '<td><textarea placeholder = "Add Comment" class = "commentbox"></textarea><br><br><button class = "comment action" onclick = "comment(\'' + nkey + '\',\'' + ukey +  '\')"> Add Comment</button><br><br></td></tr>'
   //var markup6 = "<input type = 'hidden' value = n
   var markupi;
   
@@ -153,8 +172,8 @@ reject: "true"
 })
 location.reload()
 }
-  
-  
+
+
    
   
   </script>
@@ -441,10 +460,14 @@ var filename = selectedFile
       <p>Copyright &copy; E-MTracker 2017 </p>
     </div>
   </div>
+   <textarea class = "ttt"></textarea>
+   <textarea class = "ttt"></textarea>
    
   
   
   <script>
+  
+  $(".ttt").prev("textarea").val("aaa")
 // Get the modal
 var modal = document.getElementById('myModal');
 
@@ -498,8 +521,6 @@ window.onclick = function(event) {
         modal2.style.display = "none";
     }
 }
-
-
 
 
 
