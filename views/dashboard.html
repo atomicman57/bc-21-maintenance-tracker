@@ -9,24 +9,37 @@
   <script src = "js/firebaseapp.js"></script>
   <script>
   
-  function admin(){
+  function admin(user,verified){
    $("#adminwelcome").show();
    $("#adminmenu").show();
    $("#staffwelcome").hide();
    $("#staffmenu").hide();
+    $("#adminmenu1").show();
+   $("span#user").html(user);
+   if (!verified){
+   $("#adminwelcome").html("<font size = '13' color = 'red'>Your Account have not been verified, Login to your email to verify your Account.</font>");
+   }
+   
   }
   
   
-  function staff(){
+  function staff(user,verified){
   $("#adminwelcome").hide();
    $("#adminmenu").hide();
    $("#staffwelcome").show();
    $("#staffmenu").show();
+    $("#staffmenu1").show();
+   $("span#user").html(user);
+   if (!verified){
+   $("#staffwelcome").html("<font size = '13' color = 'red'>Your Account have not been verified, Login to your email to verify your Account.</font>");
+   }
    
   }
   
   firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
+  var verified = firebase.auth().currentUser.emailVerified;
+  console.log(verified)
     var userId = firebase.auth().currentUser.uid;
 	firebase.database().ref('users').child(userId).once('value').then(function(snapshot) {
 	var userdetail = snapshot.val();
@@ -34,9 +47,9 @@
 	var username = userdetail["Username"];
 	var level = userdetail["level"];
 	if(level == 2){
-	admin()
+	admin(username,verified)
 	} else{
-	staff()
+	staff(username,verified)
 	}
 	
 	});
@@ -63,10 +76,17 @@
       </div>
       <div id="menubar">
         <ul id="menu">
+		<li style = ""><a>Welcome <span id = "user"></span></a></li>
+		 <span id = "adminmenu1"> 
+		 
+		 <li style = ""><a><font size = "4"><b>Admin Dashboard</b></font></a></li>
+		 </span>
+		  <span id = "staffmenu1"> 
+		 
+		 </span>
           <li class="selected"><a href="#">Home</a></li>
 		  <span id = "adminmenu"> 
 		  <li><a href="/maintenance">Maintenance Requests</a></li>
-          <li><a href="/signup">Staffs</a></li>
 		  </span>
 		  <span id = "staffmenu">
 		  <li><a href="/maintenance">Maintenance Requests</a></li>

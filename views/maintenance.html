@@ -122,7 +122,7 @@
   markupi = markup5
   }
   else{
-  markupi = markup2 + markup3+ markup5
+  markupi = markup2 + markup3
   }
   
  
@@ -168,6 +168,7 @@ location.reload()
    $("#staffwelcome").hide();
    $("#staffmenu").hide();
    $("#admincon").show();
+   $("#adminmenu1").show();
   }
   
   
@@ -177,6 +178,7 @@ location.reload()
    $("#staffwelcome").show();
    $("#staffmenu").show();
     $("#staffcon").show();
+    $("#staffmenu1").show();
    
   }
   
@@ -240,10 +242,18 @@ var filename = selectedFile
       </div>
       <div id="menubar">
         <ul id="menu">
+		 <span id = "adminmenu1"> 
+		 
+		 <li style = ""><a><font size = "4"><b>Admin Dashboard</b></font></a></li>
+		 </span>
+		  <span id = "staffmenu1"> 
+		 
+		 <li style = ""><a><font size = "4"><b>Staff Dashboard</b></font></a></li>
+		 </span>
           <li><a href="/dashboard">Home</a></li>
 		  <span id = "adminmenu"> 
 		  <li class="selected"><a href="/maintenance">Maintenance Requests</a></li>
-          <!--<li><a href="/signup">Staffs</a></li> -->
+          
 		  </span>
 		  <span id = "staffmenu">
 		  <li class="selected"><a href="/maintenance">Maintenance Requests</a></li>
@@ -277,17 +287,17 @@ var filename = selectedFile
 	<div class = "reqinner">
     <div class="modal-body">
 	<br>
-	<label><b>Equipment name/no:<b></label> <br>
+	<label><b>Equipment/Gadget name/no:<b></label> <br>
 	<input type = "text" id = "equpid"> 
 	
 	<br>
 	<br>
-	<label><b>Description:</b></label>
+	<label><b>Equipment/Gadget Description:</b></label>
 	<br>
 	<input type = "text" id = "description"> 
 	<br>
 	<br>
-	<label><b>Detailed Information: </b></label>
+	<label><b>Fault/problem Details: </b></label>
 	<br>
 	<textarea id = "detail"></textarea> 
 	<br>
