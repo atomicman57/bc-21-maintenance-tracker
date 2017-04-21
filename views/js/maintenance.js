@@ -350,23 +350,22 @@ location.reload()
 
 
 
-$("#fileupload").on("change", function(event){
-var selectedFile = event.target.files[0];
-alert(selectedFile)
-});
 
 
 
 
 
 
-function upload(){
-var storageRef = firebase.storage().ref("/reqimages/");
-var filename = selectedFile
-
-
-
-
+function fileUpload(){
+var file = document.getElementById("file").files[0]
+console.log(file)
+var fileName = file.name;
+console.log(file)
+var storageRef = firebase.storage().ref("images");
+var spaceRef = storageRef.child(fileName);
+var uploadTask = spaceRef.put(file);
+document.getElementById("file").value = "";
+alert("Your file have been uploaded");
 }
 
 
