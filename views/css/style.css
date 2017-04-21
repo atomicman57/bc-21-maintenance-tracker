@@ -454,7 +454,8 @@ display: none;
     -webkit-animation-name: animatetop;
     -webkit-animation-duration: 0.4s;
     animation-name: animatetop;
-    animation-duration: 0.4s
+    animation-duration: 0.4s;
+	
 }
 
 /* Add Animation */
@@ -584,9 +585,9 @@ font-size: 1.3em;
 #reqmodal input{
 border-radius: 10px;
 width: 50%;
-padding: 5px;
+padding: 4px;
 height: 15px;
-margin: 2px;
+margin: 1px;
 }
 
 #reqmodal textarea{
@@ -596,8 +597,25 @@ padding: 5px;
 height: 45px;
 margin: 2px;
 }
+
+#uploadbtn{
+background-color: #333333;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1em;
+    margin: 4px 2px;
+    cursor: pointer;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    border-radius: 5px;
+}
+
 .modal2{
-width: 50%;
+width: 60%;
 
 }
 
