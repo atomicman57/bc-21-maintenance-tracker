@@ -80,7 +80,8 @@
   approved: "false",
   reject: "false",
   assigned: "none",
-  akey: dbkey 
+  akey: dbkey,
+  userid: userId
   });
 
   alert("Your Request Have been Created")
@@ -105,15 +106,17 @@
   ndata = data[prop]
   for(nprop in ndata){
   //console.log(ndata.key())
-  
+  var nkey = ndata[nprop]['akey'] 
+  var ukey = ndata[nprop]['userid']
   var markup = "<tr id = 'tbl'><td>" + ndata[nprop]['equipment'] + "</td><td>" + ndata[nprop]['description'] + "</td><td>" + ndata[nprop]['details'] + "</td><td>" + ndata[nprop]['date'] + "</td><td>" + ndata[nprop]['status'] + "</td><td>" + ndata[nprop]['comment'] + "</td><td>" + ndata[nprop]['department'] + "</td></tr>";
-  var markup2 = "<td><button id = 'approve' onclick = 'approve()' class = 'action'> Approve</button><br><br></td>" 
-  var markup3 = "<td><button id = 'reject'  class = 'action'> Reject</button><br><br></td>" 
+  var markup2 = '<td><button id = "approve" class = "action" onclick = "approve(\'' + nkey + '\',\'' + ukey +  '\')"> Approve</button><br><br></td>' 
+  var markup3 = '<td><button id = "reject" class = "action" onclick = "reject(\'' + nkey + '\',\'' + ukey +  '\')"> Reject</button><br><br></td>'
   var markup4 = "<td><button id = 'Assign' class = 'action'>Add Repairer</button><br><br></td>" 
   var markup5 = "<td><button id = 'comment' class = 'action'> Add Comment</button><br><br></td></tr>"
   //var markup6 = "<input type = 'hidden' value = n
   var markupi;
-  if (ndata[nprop]['approve'] == "true"){
+  
+  if (ndata[nprop]['approved'] == "true"){
   markupi = markup4 + markup5
   } else if(ndata[nprop]['reject'] == "true"){
   markupi = markup5
@@ -135,13 +138,20 @@
  
   }
 
-function approve(){
- var user = firebase.auth().currentUser;
-  var usertoken = user.uid;
-//firebase.database().ref("requests").child(usertoken).child.("akey").update({
-//status: "approved"
-//approve: "true",
-//})
+function approve(akey,usertoken){
+ firebase.database().ref("requests").child(usertoken).child(akey).update({
+status: "approved",
+approved: "true"
+})
+location.reload()
+}
+
+function reject(akey,usertoken){
+ firebase.database().ref("requests").child(usertoken).child(akey).update({
+status: "rejected",
+reject: "true"
+})
+location.reload()
 }
   
   
