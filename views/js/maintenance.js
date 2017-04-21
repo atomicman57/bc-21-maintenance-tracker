@@ -135,6 +135,8 @@ loadnotif();
   var detail = $("#detail").val()
   var depart = $("#department").val()
   var d = new Date;
+
+if (equip != "" && describe != "" && detail != "" && depart != ""){
   var today = d.getFullYear() + '/' + ('0'+(d.getMonth()+1)).slice(-2) + '/' + ('0'+d.getDate()).slice(-2);
   var dbref = firebase.database().ref("requests")
   var user = firebase.auth().currentUser;
@@ -155,7 +157,7 @@ loadnotif();
   userid: userId,
   assignname: "false",
   assignnum: "false",
-  resolve: "false"
+  resolve: "false",
   });
 
   alert("Your Request Have been Created")
@@ -163,6 +165,10 @@ loadnotif();
   $("#description").val("")
   $("#detail").val("")
   $("#department").val("")
+}
+else{
+  alert("One of the input is empty.")
+}
   
   
   }
@@ -240,6 +246,10 @@ var reqname = reqdetail["equipment"]
 var reqdate = reqdetail["date"]
 
 
+firebase.database().ref("notify").set({
+notify: 1
+})
+
 
  firebase.database().ref("requests").child(usertoken).child(akey).update({
 status: "approved",
@@ -262,6 +272,10 @@ function reject(akey,usertoken){
   var reqdetail = snapshot.val();
 var reqname = reqdetail["equipment"]
 var reqdate = reqdetail["date"]
+
+firebase.database().ref("notify").set({
+notify: 1
+})
 
 firebase.database().ref("notifications").child(usertoken).push({
 Message: "Your Request on " + reqdate  + " about " + reqname +  " have been Rejected"

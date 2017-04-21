@@ -48,7 +48,7 @@ var handleerror = "";
  }
 else{
 
-	alert("Errors was detected in your input - Your Password Length must be greater than 3,Full Name length must be greater than 5 and username length must be greater than 4")
+	alert("Errors was detected in your input - Your Password Length must be atleast 4,Full Name length must be atleast 6 and username length must be atleast 5")
 }
 
 }

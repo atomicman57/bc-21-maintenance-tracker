@@ -37,7 +37,7 @@
 		  </span>
 		  <span id = "staffmenu">
 		  <li class="selected"><a href="/maintenance">Maintenance Requests</a></li>
-          <li><a href="#" id = "myBtn4">Notifications(0)</a></li>
+          <li><a href="#" id = "myBtn4">Notifications<span id = "notiff"></span></a></li>
 		  </span>
           <li><a href = "#" onclick = "signOut()">Sign Out</a></li>
         
@@ -229,6 +229,21 @@
     </div>
   </div>
  <script>
+ 
+  firebase.database().ref('notify').on('value', function(snapshot) {
+  var detail = snapshot.val();
+var notif = detail["notify"]
+if(notif == 1){
+$("#notiff").html("<font color = 'red'>NEW</font>")
+}
+else{
+$("#notiff").html(" ")
+}
+
+});
+ 
+ 
+ 
  // Modal 2
  var modal2 = document.getElementById('myModal2');
 
@@ -288,6 +303,10 @@ var span = document.getElementsByClassName("close")[2];
 
 btn3.onclick = function() {
     modal3.style.display = "block";
+	firebase.database().ref("notify").set({
+notify: 0
+})
+	
 }
 
 span.onclick = function() {

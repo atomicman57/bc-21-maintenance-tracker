@@ -9,6 +9,32 @@
   <script src = "js/firebaseapp.js"></script>
   <script>
   
+  function loadnotif(){
+
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+ 
+  var dbref = firebase.database().ref("notifications")
+  var user = firebase.auth().currentUser;
+  var usertoken = user.uid;
+  
+  dbref.child(usertoken).on('value', function(snapshot) {
+  var data = snapshot.val();
+  for(prop in data){
+  var markup = "<p> "+ data[prop]["Message"] + "</p>"
+           $("#notify").append(markup);
+          
+       
+       
+  }
+});
+}
+})
+
+}
+
+loadnotif();
+  
   function admin(user,verified){
    $("#adminwelcome").show();
    $("#adminmenu").show();
@@ -90,7 +116,7 @@
 		  </span>
 		  <span id = "staffmenu">
 		  <li><a href="/maintenance">Maintenance Requests</a></li>
-          <li><a href="#">Notifications(0)</a></li>
+          <li><a href="#" id = "myBtn4">Notifications(<font color = "red">new</font>)</a></li>
 		  </span>
           <li><a href = "#" onclick = "signOut()">Sign Out</a></li>
         
@@ -135,9 +161,24 @@
 	   <br>
 	   <br>
 	   <br>
-	   <form>
-	   
-	   </form>
+	   <!-- The Modal -->
+<div id="myModal3" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content modal3">
+    <div class="modal-header">
+      <span class="close">&times;</span>
+      <div style="padding: 20px">Notifications</div>
+    </div>
+	<div class = "reqinner">
+    <div class="modal-body">
+	<br>
+	<p id = "notify"></p>
+	</div>
+    </div>
+  </div>
+
+</div>
       
 		
         
@@ -171,6 +212,31 @@
   }
 });
 
+
   </script>
+  <script>
+  // Modal 3
+ var modal3 = document.getElementById('myModal3');
+
+var btn3 = document.getElementById("myBtn4");
+
+var span = document.getElementsByClassName("close")[0];
+
+btn3.onclick = function() {
+    modal3.style.display = "block";
+}
+
+span.onclick = function() {
+    modal3.style.display = "none";
+}
+
+window.onclick = function(event) {
+    if (event.target == modal3) {
+        modal3.style.display = "none";
+    }
+}
+  </script>
+  
+  
 </body>
 </html>
