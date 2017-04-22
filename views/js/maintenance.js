@@ -1,3 +1,17 @@
+/**
+ * This is maintenance page javascript
+ * This js is for both Staff and Admin
+ */
+
+
+
+
+/**
+ * Sign Out Function
+ * This function sign out the user and redirect to sign in page
+ * It uses the firebase sign out function
+ * It handles error too
+ */
 function signOut() {
     firebase.auth().signOut().then(function() {
         window.location = "/signin"
@@ -9,6 +23,13 @@ function signOut() {
 }
 
 
+/**
+ * This firebase function check if the user accessing this page is signed in
+ * This can only be view if user is signed in
+ * If user is not signed in, it redirect to the home page
+ */
+
+
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
         let uid = user.uid;
@@ -18,7 +39,12 @@ firebase.auth().onAuthStateChanged(function(user) {
 });
 
 
-
+/**
+ * Comment Function
+ * Only admin have access to this function
+ * @param {string} The user id of the staff that make the request 
+ * @param {string} The id/key of the request on firebase database
+ */
 
 function comment(usertoken, akey) {
 
