@@ -30,7 +30,7 @@ router.get("/mainrequest",function(req,res){
 })
 
 router.get("*",function(req,res){
-	res.send("404 not found")
+	res.sendFile(viewpath + "404.html")
 })
 
 app.use("/",router)
