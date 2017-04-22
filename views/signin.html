@@ -2,113 +2,69 @@
 <html>
 
 <head>
-  <title>E - Maintenance Sign In</title>
-  <link rel="stylesheet" type="text/css" href="css/style.css" />
-  <script src="https://www.gstatic.com/firebasejs/3.8.0/firebase.js"></script>
-  <script src = "js/jquery-3.1.1.min.js"></script>
-  <script src = "js/firebaseapp.js"></script>
-  <script>
-  firebase.auth().onAuthStateChanged(function(user) {
-  if (user) {
-    window.location = "/dashboard"
-
-	console.log(firebase.auth().currentUser)
-  } else {
-	
-  }
-});
-  </script>
+    <title>E - Maintenance Sign In</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <script src="https://www.gstatic.com/firebasejs/3.8.0/firebase.js"></script>
+    <script src="js/jquery-3.1.1.min.js"></script>
+    <script src="js/firebaseapp.js"></script>
+    <script src="js/signin.js"></script>
 </head>
 
 <body>
 
-  <div id="main">
-    <div id="header">
-      <div id="logo">
-        <div id="logo_text">
-          <h1><a href="#">E - <span class="logo_colour">MTracker</span></a></h1>
-          <h2>A maintenance and repairs Tracker.</h2>
+    <div id="main">
+        <div id="header">
+            <div id="logo">
+                <div id="logo_text">
+                    <h1><a href="#">E - <span class="logo_colour">MTracker</span></a></h1>
+                    <h2>A maintenance and repairs Tracker.</h2>
+                </div>
+            </div>
+            <div id="menubar">
+                <ul id="menu">
+                    <li><a href="/">Home</a></li>
+                    <li class="selected"><a href="#">Sign In</a></li>
+                    <li><a href="/signup">Sign up</a></li>
+
+                </ul>
+            </div>
         </div>
-      </div>
-      <div id="menubar">
-        <ul id="menu">
-          <li><a href="/">Home</a></li>
-          <li class="selected"><a href="#">Sign In</a></li>
-          <li><a href="/signup">Sign up</a></li>
-       
-        </ul>
-      </div>
+        <div id="content_header"></div>
+        <div id="site_content">
+
+            <div id="loginform">
+                <div id="logininner">
+
+
+
+                    <div class="box">
+                        <div class="boxcon">
+                            <h1 class="headin">LOG IN</h1>
+                            <br> Email: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="email" id="email" placeholder="Email" class="email" />
+
+                            <br>Password: <input type="password" id="password" placeholder="password" class="email" />
+                            <br>
+                            <br>
+                            <br>
+                            <button class="btn" onclick="signin()">Sign In</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+
+
+
+
+        <div id="content_footer"></div>
+        <div id="footer">
+            <p><a href="/">Home</a> | <a href="/signup">Sign up</a> | <a href="/signin">Sign In</a>
+                <p>Copyright &copy; E-MTracker 2017 </p>
+        </div>
     </div>
-    <div id="content_header"></div>
-    <div id="site_content">
-      
-      <div id="loginform">
-        <div id = "logininner">
-		
-		
-		
-<div class="box">
-<div class = "boxcon">
-<h1 class = "headin">LOG IN</h1>
-<br>
-
-Email: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="email" id ="email" placeholder="Email"  class="email" />
-  
-<br>Password: <input type="password" id="password" placeholder="password"  class="email" />
- <br> 
- <br> 
- <br> 
-<button class="btn" onclick = "signin()">Sign In</button>
-</div>
-</div>
-</div>
-</div>
-</div>
-<br>
-		
-    
-      
-    
-    <div id="content_footer"></div>
-    <div id="footer">
-      <p><a href="/">Home</a> | <a href="/signup">Sign up</a> | <a href="/signin">Sign In</a>
-      <p>Copyright &copy; E-MTracker 2017 </p>
-    </div>
-  </div>
-<script>
-
- function signin(){
- var Email = document.getElementById("email")
- var Password = document.getElementById("password")
- var email = Email.value;
- var password = Password.value;
-
- if(email.length > 5 && password.length > 3){
- firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
-  // Handle Errors here.
-  var errorCode = error.code;
-  var errorMessage = error.message;
-  alert(errorMessage)
-  // ...
-});
-
-firebase.auth().onAuthStateChanged(function(user) {
-  if (user) {
-    // User is signed in.
-   window.location = "/dashboard"
-	console.log(firebase.auth().currentUser)
-  } else {
-  }
-});
- 
- } else{
- 
- alert("Invalid Email or Password")
- }
- 
- 
- }
-
-  </script>
+    <script>
+    </script>
 </body>
+
 </html>

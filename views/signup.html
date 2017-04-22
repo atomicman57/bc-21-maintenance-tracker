@@ -2,91 +2,74 @@
 <html>
 
 <head>
-  <title>E - Maintenance Sign up</title>
-  <link rel="stylesheet" type="text/css" href="css/style.css" />
-  <script src="https://www.gstatic.com/firebasejs/3.8.0/firebase.js"></script>
-  <script src = "js/jquery-3.1.1.min.js"></script>
-  <script src = "js/firebaseapp.js"></script>
-  <script>
-  firebase.auth().onAuthStateChanged(function(user) {
-  if (user) {
-    
-
-	console.log(firebase.auth().currentUser)
-  } else {
-	
-  }
-});
-  </script>
+    <title>E - Maintenance Sign up</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <script src="https://www.gstatic.com/firebasejs/3.8.0/firebase.js"></script>
+    <script src="js/jquery-3.1.1.min.js"></script>
+    <script src="js/firebaseapp.js"></script>
 </head>
 
 <body>
-  <div id="main">
-    <div id="header">
-      <div id="logo">
-        <div id="logo_text">
-          <h1><a href="#">E - <span class="logo_colour">MTracker</span></a></h1>
-          <h2>A maintenance and repairs Tracker.</h2>
+    <div id="main">
+        <div id="header">
+            <div id="logo">
+                <div id="logo_text">
+                    <h1><a href="#">E - <span class="logo_colour">MTracker</span></a></h1>
+                    <h2>A maintenance and repairs Tracker.</h2>
+                </div>
+            </div>
+            <div id="menubar">
+                <div class="signinmenu">
+                    <ul id="menu">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/signin">Sign In</a></li>
+                        <li class="selected"><a href="#">Sign up</a></li>
+
+                    </ul>
+                </div>
+            </div>
         </div>
-      </div>
-      <div id="menubar">
-	  <div class = "signinmenu">
-        <ul id="menu">
-          <li><a href="/">Home</a></li>
-          <li><a href="/signin">Sign In</a></li>
-          <li class="selected"><a href="#">Sign up</a></li>
-          
-        </ul>
-		</div>
-      </div>
-    </div>
-    <div id="content_header"></div>
-    <div id="site_content">
-      
-      <div id="signupform">
-        <div id = "sigupinner">
-		
-		
-	
-<div class="box">
-<div class = "boxcon">
-<h1 class = "headin">SIGN UP</h1>
-<br>
-Full name: &nbsp&nbsp<input type="email" id="fullName" placeholder="Full name"  class="email" />
-<br>
-Username: &nbsp&nbsp<input type="text" id="username" placeholder="Username"  class="email" />
-<br>
-Email: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" id="email" placeholder="Email"  class="email" />
-  
-<br>Password: &nbsp&nbsp <input type="password" id="password" placeholder="password"  class="email" />
- <br> 
- <br> 
- <br> 
-<button onclick = "signup()" id = "btn" class="btn">Sign Up</button>
+        <div id="content_header"></div>
+        <div id="site_content">
 
-  </div>
-</div>
+            <div id="signupform">
+                <div id="sigupinner">
 
-<br>
-		</div>
-    
-      </div>
-	  
-<p id = "verifiy"></p>
-    </div>
-    <div id="content_footer"></div>
-    <div id="footer">
-      <p><a href="/">Home</a> | <a href="/signup">Sign up</a> | <a href="/signin">Sign In</a>
-      <p>Copyright &copy; E-MTracker 2017 </p>
-    </div>
-  </div>
-  <script src = "js/signup.js"></script>
-  <script>
-  
 
-  </script>
+
+                    <div class="box">
+                        <div class="boxcon">
+                            <h1 class="headin">SIGN UP</h1>
+                            <br> Full name: &nbsp&nbsp<input type="email" id="fullName" placeholder="Full name" class="email" />
+                            <br> Username: &nbsp&nbsp<input type="text" id="username" placeholder="Username" class="email" />
+                            <br> Email: &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" id="email" placeholder="Email" class="email" />
+
+                            <br>Password: &nbsp&nbsp <input type="password" id="password" placeholder="password" class="email" />
+                            <br>
+                            <br>
+                            <br>
+                            <button onclick="signup()" id="btn" class="btn">Sign Up</button>
+
+                        </div>
+                    </div>
+
+                    <br>
+                </div>
+
+            </div>
+
+            <p id="verifiy"></p>
+        </div>
+        <div id="content_footer"></div>
+        <div id="footer">
+            <p><a href="/">Home</a> | <a href="/signup">Sign up</a> | <a href="/signin">Sign In</a>
+                <p>Copyright &copy; E-MTracker 2017 </p>
+        </div>
+    </div>
+    <script src="js/signup.js"></script>
+    <script>
+    </script>
 </body>
 </body>
+
 </html>
-
-
