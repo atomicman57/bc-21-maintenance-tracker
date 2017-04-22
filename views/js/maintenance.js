@@ -42,7 +42,7 @@ function comment(usertoken, akey) {
 
 
 
-function addrepair(usertoken, akey) {
+function addRepair(usertoken, akey) {
 
     $(document).on('click', '.assign', function() {
 
@@ -68,7 +68,7 @@ function addrepair(usertoken, akey) {
 
 
 
-function loadreq() {
+function loadRequest() {
 
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
@@ -94,7 +94,7 @@ function loadreq() {
 }
 
 
-function loadnotif() {
+function loadNotification() {
 
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
@@ -118,12 +118,12 @@ function loadnotif() {
 
 }
 
-loadnotif();
+loadNotification();
 
 
 
 
-function createrep() {
+function createRequest() {
     var equip = $("#equpid").val()
     var describe = $("#description").val()
     var detail = $("#detail").val()
@@ -167,7 +167,7 @@ function createrep() {
 }
 
 
-function adminloadreq() {
+function adminloadRequest() {
 
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
@@ -184,7 +184,7 @@ function adminloadreq() {
                         var markup = "<tr id = 'tbl'><td>" + ndata[nprop]['equipment'] + "</td><td>" + ndata[nprop]['description'] + "</td><td>" + ndata[nprop]['details'] + "</td><td>" + ndata[nprop]['date'] + "</td><td>" + ndata[nprop]['status'] + "</td><td>" + ndata[nprop]['comment'] + "</td><td>" + ndata[nprop]['department'] + "</td></tr>";
                         var markup2 = '<td><button id = "approve" class = "action" onclick = "approve(\'' + nkey + '\',\'' + ukey + '\')"> Approve</button><br><br></td>'
                         var markup3 = '<td><button id = "reject" class = "action" onclick = "reject(\'' + nkey + '\',\'' + ukey + '\')"> Reject</button><br><br></td>'
-                        var markup4 = '<td>Name: &nbsp&nbsp <input type = "text" class = "repairname" placeholder = "Input the name of repairer"><br> <br>Phone No: <input type = "text" class = "repairnum" placeholder = "Phone Number"><button class = "action assign" onclick = "addrepair(\'' + nkey + '\',\'' + ukey + '\')">Add Repairer</button><br><br></td>'
+                        var markup4 = '<td>Name: &nbsp&nbsp <input type = "text" class = "repairname" placeholder = "Input the name of repairer"><br> <br>Phone No: <input type = "text" class = "repairnum" placeholder = "Phone Number"><button class = "action assign" onclick = "addRepair(\'' + nkey + '\',\'' + ukey + '\')">Add Repairer</button><br><br></td>'
                         var markup5 = '<td><textarea placeholder = "Add Comment" class = "commentbox"></textarea><br><br><button class = "comment action" onclick = "comment(\'' + nkey + '\',\'' + ukey + '\')"> Add Comment</button><br><br></td></tr>'
                         var markup6 = '<td><button id = "resolve" class = "action" onclick = "resolve(\'' + nkey + '\',\'' + ukey + '\')"> Click if Resolved</button><br><br></td>'
                         //var markup6 = "<input type = 'hidden' value = n
@@ -324,10 +324,10 @@ firebase.auth().onAuthStateChanged(function(user) {
             var level = userdetail["level"];
             if (level == 2) {
                 admin()
-                adminloadreq()
+                adminloadRequest()
             } else {
                 staff()
-                loadreq()
+                loadRequest()
             }
 
         });

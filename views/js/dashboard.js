@@ -1,16 +1,16 @@
-function loadnotif() {
+function loadNotification() {
 
     firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
 
-            var dbref = firebase.database().ref("notifications")
-            var user = firebase.auth().currentUser;
-            var usertoken = user.uid;
+            let dbref = firebase.database().ref("notifications")
+            let user = firebase.auth().currentUser;
+            let usertoken = user.uid;
 
             dbref.child(usertoken).on('value', function (snapshot) {
-                var data = snapshot.val();
+                let data = snapshot.val();
                 for (prop in data) {
-                    var markup = "<p> " + data[prop]["Message"] + "</p>"
+                    let markup = "<p> " + data[prop]["Message"] + "</p>"
                     $("#notify").append(markup);
 
 
@@ -22,7 +22,7 @@ function loadnotif() {
 
 }
 
-loadnotif();
+loadNotification();
 
 function admin(user, verified) {
     $("#adminwelcome").show();
@@ -53,14 +53,13 @@ function staff(user, verified) {
 
 firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
-        var verified = firebase.auth().currentUser.emailVerified;
-        console.log(verified)
-        var userId = firebase.auth().currentUser.uid;
+        let verified = firebase.auth().currentUser.emailVerified;
+        let userId = firebase.auth().currentUser.uid;
         firebase.database().ref('users').child(userId).once('value').then(function (snapshot) {
-            var userdetail = snapshot.val();
-            var fullname = userdetail["Fullname"];
-            var username = userdetail["Username"];
-            var level = userdetail["level"];
+            let userdetail = snapshot.val();
+            let fullname = userdetail["Fullname"];
+            let username = userdetail["Username"];
+            let level = userdetail["level"];
             if (level == 2) {
                 admin(username, verified)
             } else {

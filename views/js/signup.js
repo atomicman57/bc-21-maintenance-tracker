@@ -1,31 +1,31 @@
-function hidesignup() {
+function hideSignup() {
     $("#signupform").hide();
 }
 
-function verifymsg() {
-    var msg = "Your Registration on E-MTracker was successful, "
-    var msg2 = "A verification mail have been sent to you, "
-    var msg3 = "check your mail to verify your account. Click Sign inand you will be automatically signed in"
+function verifyMsg() {
+    let msg = "Your Registration on E-MTracker was successful, "
+    let msg2 = "A verification mail have been sent to you, "
+    let msg3 = "check your mail to verify your account. Click Sign inand you will be automatically signed in"
     $("#verifiy").append(msg + msg2 + msg3);
 }
 
 
-function signup() {
-    var Email = document.getElementById("email")
-    var Password = document.getElementById("password")
-    var fullName = document.getElementById("fullName").value
-    var username = document.getElementById("username").value
-    var email = Email.value;
-    var password = Password.value;
-    var handleerror = "";
+function signUp() {
+    let Email = document.getElementById("email")
+    let Password = document.getElementById("password")
+    let fullName = document.getElementById("fullName").value
+    let username = document.getElementById("username").value
+    let email = Email.value;
+    let password = Password.value;
+    let handleerror = "";
     if (email.length > 5 && password.length > 3 && fullName.length > 5 && username.length > 4) {
         firebase.auth().createUserWithEmailAndPassword(email, password).then(function (value) {
             firebase.auth().onAuthStateChanged(function (user) {
                 user.sendEmailVerification();
                 // if signup is sucessful hide signup
-                var uid = user.uid
-                hidesignup()
-                verifymsg()
+                let uid = user.uid
+                hideSignup()
+                verifyMsg()
                 firebase.database().ref('users').child(uid).set({
                     Fullname: fullName,
                     Username: username,
@@ -36,8 +36,8 @@ function signup() {
             });
 
         }).catch(function (error) {
-            var errorCode = error.code;
-            var errorMessage = error.message;
+            let errorCode = error.code;
+            let errorMessage = error.message;
             alert(errorMessage)
         });
 
