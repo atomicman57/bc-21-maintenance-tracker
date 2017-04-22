@@ -21,7 +21,7 @@ It features are:
 * Indicate a Resolved Request(Admin)
 * Upload Picture of request(staff)
 
-To view the app hosted on hereku [click here](http://emtracker.herokuapp.com).
+To view the app hosted on heroku [click here](http://emtracker.herokuapp.com).
 
 # Dependencies
 
