@@ -78,10 +78,10 @@
                 <br>
                 <br>
                 <br>
-                <!-- The Modal -->
+                <!-- The Notification Modal -->
                 <div id="myModal3" class="modal">
 
-                    <!-- Modal content -->
+                    <!-- The Modal content -->
                     <div class="modal-content modal3">
                         <div class="modal-header">
                             <span class="close">&times;</span>
@@ -107,44 +107,10 @@
             <p>Copyright &copy; E-MTracker 2017 </p>
         </div>
     </div>
-    <script>
-	
-	
-		firebase.database().ref('notify').on('value', function(snapshot) {
-            var detail = snapshot.val();
-            var notif = detail["notify"]
-            if (notif == 1) {
-                $("#notiff").html("<font color = 'red'>(NEW)</font>")
-            } else {
-                $("#notiff").html(" ")
-            }
-
-        });
-		
-		
-		
-		
-        function signOut() {
-            firebase.auth().signOut().then(function () {
-                window.location = "/signin"
-                console.log('Signed Out');
-            }, function (error) {
-                console.error('Sign Out Error', error);
-                window.location = "/"
-            });
-        }
-
-        firebase.auth().onAuthStateChanged(function (user) {
-            if (user) {
-                // User is signed in.
-                var uid = user.uid;
-            } else {
-                window.location = "/"
-            }
-        });
-    </script>
-    <script>
-        // Modal 3
+   
+   
+  <script>
+        // The Notification Modal
         var modal3 = document.getElementById('myModal3');
 
         var btn3 = document.getElementById("myBtn4");

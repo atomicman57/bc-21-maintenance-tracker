@@ -4,8 +4,7 @@
  */
 
 
-
-
+ 
 /**
  * Sign Out Function
  * This function sign out the user and redirect to sign in page
@@ -42,7 +41,7 @@ firebase.auth().onAuthStateChanged(function(user) {
 /**
  * Comment Function
  * Only admin have access to this function
- * @param {string} The user id of the staff that make the request 
+ * @param {string} The user id of the staff that make the request
  * @param {string} The id/key of the request on firebase database
  * it stores the comment in the database reference "requests"
  * It checks if the "Add Comment Button" with html class "comment" is clicked
@@ -73,7 +72,7 @@ function comment(usertoken, akey) {
 /**
  * Add repairer Function
  * Only admin have access to this function
- * @param {string} The user id of the staff that make the request 
+ * @param {string} The user id of the staff that make the request
  * @param {string} The id/key of the request on firebase database
  * it stores the repairer name and phone number in the database reference "requests"
  * It checks if the "Add Repairer" button with html class "assign" is clicked
@@ -262,11 +261,11 @@ function adminloadRequest() {
             let dbref = firebase.database().ref("requests")
             dbref.on('value', function(snapshot) {
                 let data = snapshot.val();
-    
+
                 for (prop in data) {
                     ndata = data[prop]
                     for (nprop in ndata) {
-                        
+
                         let nkey = ndata[nprop]['akey']
                         let ukey = ndata[nprop]['userid']
                         let generatedTable = "<tr id = 'tbl'><td>" + ndata[nprop]['equipment'] + "</td><td>" + ndata[nprop]['description'] + "</td><td>" + ndata[nprop]['details'] + "</td><td>" + ndata[nprop]['date'] + "</td><td>" + ndata[nprop]['status'] + "</td><td>" + ndata[nprop]['comment'] + "</td><td>" + ndata[nprop]['department'] + "</td></tr>";
@@ -275,7 +274,7 @@ function adminloadRequest() {
                         let addRepairerButton = '<td>Name: &nbsp&nbsp <input type = "text" class = "repairname" placeholder = "Input the name of repairer"><br> <br>Phone No: <input type = "text" class = "repairnum" placeholder = "Phone Number"><button class = "action assign" onclick = "addRepair(\'' + nkey + '\',\'' + ukey + '\')">Add Repairer</button><br><br></td>'
                         let addCommentButton = '<td><textarea placeholder = "Add Comment" class = "commentbox"></textarea><br><br><button class = "comment action" onclick = "comment(\'' + nkey + '\',\'' + ukey + '\')"> Add Comment</button><br><br></td></tr>'
                         let resolveButton = '<td><button id = "resolve" class = "action" onclick = "resolve(\'' + nkey + '\',\'' + ukey + '\')"> Click if Resolved</button><br><br></td>'
-                        
+
                         let generatedButtons;
 
                         if (ndata[nprop]['approved'] == "true") {
@@ -318,8 +317,8 @@ function adminloadRequest() {
 
 /**
  * Approve Function.
- * @param {string} The firebase key for that particular request 
- * @param {string} The user id 
+ * @param {string} The firebase key for that particular request
+ * @param {string} The user id
  * This function approve the request of the staff, It is called by approved button in the generated button
  * This function update the request firebase database "status" with "approved" and approved with "true".
  * It also notify the user of the approval
@@ -349,16 +348,16 @@ function approve(akey, usertoken) {
         firebase.database().ref("notifications").child(usertoken).push({
             Message: "Your Request on " + reqdate + " about " + reqname + " have been Appproved"
         })
-    location.reload()
+        location.reload()
     });
-    
+
 }
 
 
 /**
  * Reject Function.
- * @param {string} The firebase key for that particular request 
- * @param {string} The user id 
+ * @param {string} The firebase key for that particular request
+ * @param {string} The user id
  * This function reject the request of the staff, It is called by reject button in the generated button
  * This function update the request firebase database "status" with "rejected" and "reject" with "true"
  * It also notify the user of the rejection
@@ -385,15 +384,15 @@ function reject(akey, usertoken) {
             status: "rejected",
             reject: "true"
         });
-    location.reload()
-    });  
+        location.reload()
+    });
 }
 
 
 /**
  * Resolve Function.
- * @param {string} The firebase key for that particular request 
- * @param {string} The user id 
+ * @param {string} The firebase key for that particular request
+ * @param {string} The user id
  * This function resolves the request of the staff, It is called by resolve button in the generated button
  * This function update the request firebase database "status" with "resolved".
  * It reloads the page to show changes
@@ -412,7 +411,7 @@ function resolve(akey, usertoken) {
 /**
  * Admin Function
  *
- * @param {string} The username of the admin 
+ * @param {string} The username of the admin
  * @param {boolean} If the admin email is verified or not
  * It shows the admin menu and verification  notification
  * It shows admin welcome message
@@ -433,8 +432,8 @@ function admin() {
 /**
  * Staff Function
  *
- * @param {string} The username of the admin 
- * @param {boolean} If the staff email is verified or not 
+ * @param {string} The username of the admin
+ * @param {boolean} If the staff email is verified or not
  * It shows the staff menu and verification notification
  * It shows staff welcome message
  * It hide all admin menu
@@ -457,7 +456,7 @@ function staff() {
  * If the level is 1 then that is a staff
  * If level is two that is admin
  * It then call the proper function for the user
- * If user is not signed in, it returns to the home page 
+ * If user is not signed in, it returns to the home page
  */
 
 firebase.auth().onAuthStateChanged(function(user) {
@@ -504,3 +503,18 @@ function fileUpload() {
     document.getElementById("file").value = "";
     alert("Your file have been uploaded");
 }
+
+
+/**
+ * This is to notify the user of new notification request
+ */
+firebase.database().ref('notify').on('value', function(snapshot) {
+    let detail = snapshot.val();
+    let notif = detail["notify"]
+    if (notif == 1) {
+        $("#notiff").html("<font color = 'red'>(NEW)</font>")
+    } else {
+        $("#notiff").html(" ")
+    }
+
+});

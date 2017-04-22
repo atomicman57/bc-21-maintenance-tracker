@@ -228,20 +228,11 @@
     </div>
     </div>
     <script>
-        firebase.database().ref('notify').on('value', function(snapshot) {
-            let detail = snapshot.val();
-            let notif = detail["notify"]
-            if (notif == 1) {
-                $("#notiff").html("<font color = 'red'>(NEW)</font>")
-            } else {
-                $("#notiff").html(" ")
-            }
-
-        });
+       
 
 
 
-        // Modal 2
+        // View Request Modal
         let modal2 = document.getElementById('myModal2');
 
         let btn2 = document.getElementById("myBtn3");
@@ -265,7 +256,7 @@
 
 
 
-        // Modal 1
+        // This is for Create request Modal
         let modal = document.getElementById('myModal');
 
 
@@ -288,7 +279,7 @@
         }
 
 
-        // Modal 3
+        // This is for the notification Modal 
         let modal3 = document.getElementById('myModal3');
 
         let btn3 = document.getElementById("myBtn4");
