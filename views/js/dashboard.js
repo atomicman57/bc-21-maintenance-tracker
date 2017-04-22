@@ -1,3 +1,12 @@
+/**
+ * Load Notification Function.
+ * This function load the notification of the staff from database
+ * It get the current user with firebase function currentUser
+ * It add the notification to html id name with "notify"
+ * It is then called after to load notification for the current User
+ * This function is for only staff
+ */
+
 function loadNotification() {
 
     firebase.auth().onAuthStateChanged(function (user) {
@@ -10,8 +19,8 @@ function loadNotification() {
             dbref.child(usertoken).on('value', function (snapshot) {
                 let data = snapshot.val();
                 for (prop in data) {
-                    let markup = "<p> " + data[prop]["Message"] + "</p>"
-                    $("#notify").append(markup);
+                    let notificationMessage = "<p> " + data[prop]["Message"] + "</p>"
+                    $("#notify").append(notificationMessage);
 
 
 
@@ -23,6 +32,14 @@ function loadNotification() {
 }
 
 loadNotification();
+
+
+/**
+ * Admin Function
+ *
+ * @param {string} The username of the admin 
+ * @param {boolean} If the admin email is verified or not 
+ */
 
 function admin(user, verified) {
     $("#adminwelcome").show();
@@ -37,6 +54,12 @@ function admin(user, verified) {
 
 }
 
+/**
+ * Staff Function
+ *
+ * @param {string} The username of the admin 
+ * @param {boolean} If the staff email is verified or not 
+ */
 
 function staff(user, verified) {
     $("#adminwelcome").hide();
@@ -50,6 +73,14 @@ function staff(user, verified) {
     }
 
 }
+
+/**
+ * This function is to check the type of user
+ * If the level is 1 then that is a staff
+ * If level is two that is admin
+ * It then call the proper function for the user
+ * If user is not signed in, it returns to the home page 
+ */
 
 firebase.auth().onAuthStateChanged(function (user) {
     if (user) {
