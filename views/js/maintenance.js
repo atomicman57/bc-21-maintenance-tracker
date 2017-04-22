@@ -452,7 +452,13 @@ function staff() {
 }
 
 
-
+/**
+ * This function is to check the type of user
+ * If the level is 1 then that is a staff
+ * If level is two that is admin
+ * It then call the proper function for the user
+ * If user is not signed in, it returns to the home page 
+ */
 
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
@@ -479,7 +485,13 @@ firebase.auth().onAuthStateChanged(function(user) {
 });
 
 
-
+/**
+ * File Upload Function.
+ * It gett the file from html with id "file"
+ * It save it on a firebase storage refence "images"
+ * It alert if the upload was succesful
+ * This function is for staff only
+ */
 
 function fileUpload() {
     let file = document.getElementById("file").files[0]
