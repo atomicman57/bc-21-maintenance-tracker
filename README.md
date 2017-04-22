@@ -7,10 +7,10 @@
 Maintenance Tracker is a web appliaction that allow reporting of maintenance and repairs request, 
 to track the maintenance process and escalate unusual delays.
 It features are:
-*sign up via email
-*login via email
+* sign up via email
+* login via email
 * Verification Mail
-* Admin and Staff features
+* Admin and Staff features:
 * Approve or reject a request make by staff(admin)
 * Add comment(admin)
 * View all maintenanace request(admin)
