@@ -251,6 +251,7 @@ function createRequest() {
  * If comment is added, it hide the comment button and textarea.
  * If repairer is added, it hide the add repairer button and input textbox and show resolved button.
  * if the request is resolved, it will ide the button and it will not display any othe button
+ * Each button generated has a function it calls e.g Approve buttons calls approve function and pass an argument
  * This function is for Admin only
  */
 
@@ -312,10 +313,20 @@ function adminloadRequest() {
             });
         }
     })
-
-
-
 }
+
+
+/**
+ * Approve Function.
+ * @param {string} The firebase key for that particular request 
+ * @param {string} The user id 
+ * This function approve the request of the staff, It is called by approved button in the generated button
+ * This function update the request firebase database "status" with "approved" and approved with "true".
+ * It also notify the user of the approval
+ * It reloads the page to show changes
+ * This function is for Admin only
+ */
+
 
 function approve(akey, usertoken) {
 
@@ -344,7 +355,16 @@ function approve(akey, usertoken) {
 }
 
 
-
+/**
+ * Reject Function.
+ * @param {string} The firebase key for that particular request 
+ * @param {string} The user id 
+ * This function reject the request of the staff, It is called by reject button in the generated button
+ * This function update the request firebase database "status" with "rejected" and "reject" with "true"
+ * It also notify the user of the rejection
+ * It reloads the page to show changes
+ * This function is for Admin only
+ */
 
 function reject(akey, usertoken) {
 
@@ -366,9 +386,19 @@ function reject(akey, usertoken) {
             reject: "true"
         });
     location.reload()
-    });
-    
+    });  
 }
+
+
+/**
+ * Resolve Function.
+ * @param {string} The firebase key for that particular request 
+ * @param {string} The user id 
+ * This function resolves the request of the staff, It is called by resolve button in the generated button
+ * This function update the request firebase database "status" with "resolved".
+ * It reloads the page to show changes
+ * This function is for Admin only
+ */
 
 function resolve(akey, usertoken) {
     firebase.database().ref("requests").child(usertoken).child(akey).update({
@@ -379,6 +409,15 @@ function resolve(akey, usertoken) {
 }
 
 
+/**
+ * Admin Function
+ *
+ * @param {string} The username of the admin 
+ * @param {boolean} If the admin email is verified or not
+ * It shows the admin menu and verification  notification
+ * It shows admin welcome message
+ * It hide all staff menu
+ */
 
 
 function admin() {
@@ -391,6 +430,17 @@ function admin() {
 }
 
 
+/**
+ * Staff Function
+ *
+ * @param {string} The username of the admin 
+ * @param {boolean} If the staff email is verified or not 
+ * It shows the staff menu and verification notification
+ * It shows staff welcome message
+ * It hide all admin menu
+ */
+
+
 function staff() {
     $("#adminwelcome").hide();
     $("#adminmenu").hide();
@@ -400,6 +450,9 @@ function staff() {
     $("#staffmenu1").show();
 
 }
+
+
+
 
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {

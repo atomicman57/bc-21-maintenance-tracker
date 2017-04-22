@@ -38,7 +38,10 @@ loadNotification();
  * Admin Function
  *
  * @param {string} The username of the admin 
- * @param {boolean} If the admin email is verified or not 
+ * @param {boolean} If the admin email is verified or not
+ * It shows the admin menu and verification  notification
+ * It shows admin welcome message
+ * It hide all staff menu
  */
 
 function admin(user, verified) {
@@ -59,6 +62,9 @@ function admin(user, verified) {
  *
  * @param {string} The username of the admin 
  * @param {boolean} If the staff email is verified or not 
+ * It shows the staff menu and verification notification
+ * It shows staff welcome message
+ * It hide all admin menu
  */
 
 function staff(user, verified) {
