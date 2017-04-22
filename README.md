@@ -18,9 +18,10 @@ It features are:
 * Add repair request(staff)
 * Web Notification for staff if the request was approved or rejected(staff)
 * Add Repairer name and phone number(admin)
-*Indicate a Resolved Request(Admin)
+* Indicate a Resolved Request(Admin)
+* Upload Picture of request(staff)
 
-To view the app hosted on hereku [click here](emtracker.herokuapp.com).
+To view the app hosted on heroku [click here](http://emtracker.herokuapp.com).
 
 # Dependencies
 
@@ -48,6 +49,6 @@ jQuery has changed the way that millions of people write JavaScript.
 * Start browser and direct to **localhost:3000/**
 
 # System Requirements 
-### 1. A working pc 
-### 2. Node.js must be installed on pc 
-### 3. A browser
+#### 1. A working pc 
+#### 2. Node.js must be installed on pc 
+#### 3. A browser
