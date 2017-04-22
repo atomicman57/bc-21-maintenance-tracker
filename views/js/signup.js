@@ -1,6 +1,20 @@
+/**
+ * Hide Sign up
+ * This function hide the sign up form after succesful submission 
+ */
+
 function hideSignup() {
     $("#signupform").hide();
 }
+
+
+/**
+ * Verification Message
+ *This function tells the user if the registration was successful
+ * And also tells the user to verify thier account on their mail
+ * It append the message to an html element with id "verify"
+ */
+
 
 function verifyMsg() {
     let msg = "Your Registration on E-MTracker was successful, "
@@ -9,6 +23,16 @@ function verifyMsg() {
     $("#verifiy").append(msg + msg2 + msg3);
 }
 
+
+
+/**
+ * Sign up Function
+ * This is the main sign up function
+ * It gets the user inputted information from the form
+ * It use the firebase create user with email and password to create user
+ * It then store the rest of the information on the database with firebase user id
+ * It alert user of any errors that occurs
+ */
 
 function signUp() {
     let Email = document.getElementById("email")
