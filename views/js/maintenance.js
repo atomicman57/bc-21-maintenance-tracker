@@ -237,6 +237,23 @@ function createRequest() {
 }
 
 
+/**
+ * Admin Load Request Function.
+ * This function load all the staff requests make from database
+ * It loops through each data in the firebase database with reference "requests"
+ * It dynamically generate the html buttons and tables for the requests.
+ * And append it to a table
+ * Buttons generated include : Approve, Reject, Resolved, Add comment, Add repairer
+ * It generate textarea and input textbox for each request too
+ * It checks if the request is approved, reject or resolved.
+ * If the request was approved, it will hide both approve and reject buttons and show add comment and add repairer buttons
+ * If the request was rejected, it will hide both approve and reject buttons and show add comment only.
+ * If comment is added, it hide the comment button and textarea.
+ * If repairer is added, it hide the add repairer button and input textbox and show resolved button.
+ * if the request is resolved, it will ide the button and it will not display any othe button
+ * This function is for Admin only
+ */
+
 function adminloadRequest() {
 
     firebase.auth().onAuthStateChanged(function(user) {
@@ -251,44 +268,44 @@ function adminloadRequest() {
                         
                         let nkey = ndata[nprop]['akey']
                         let ukey = ndata[nprop]['userid']
-                        let markup = "<tr id = 'tbl'><td>" + ndata[nprop]['equipment'] + "</td><td>" + ndata[nprop]['description'] + "</td><td>" + ndata[nprop]['details'] + "</td><td>" + ndata[nprop]['date'] + "</td><td>" + ndata[nprop]['status'] + "</td><td>" + ndata[nprop]['comment'] + "</td><td>" + ndata[nprop]['department'] + "</td></tr>";
-                        let markup2 = '<td><button id = "approve" class = "action" onclick = "approve(\'' + nkey + '\',\'' + ukey + '\')"> Approve</button><br><br></td>'
-                        let markup3 = '<td><button id = "reject" class = "action" onclick = "reject(\'' + nkey + '\',\'' + ukey + '\')"> Reject</button><br><br></td>'
-                        let markup4 = '<td>Name: &nbsp&nbsp <input type = "text" class = "repairname" placeholder = "Input the name of repairer"><br> <br>Phone No: <input type = "text" class = "repairnum" placeholder = "Phone Number"><button class = "action assign" onclick = "addRepair(\'' + nkey + '\',\'' + ukey + '\')">Add Repairer</button><br><br></td>'
-                        let markup5 = '<td><textarea placeholder = "Add Comment" class = "commentbox"></textarea><br><br><button class = "comment action" onclick = "comment(\'' + nkey + '\',\'' + ukey + '\')"> Add Comment</button><br><br></td></tr>'
-                        let markup6 = '<td><button id = "resolve" class = "action" onclick = "resolve(\'' + nkey + '\',\'' + ukey + '\')"> Click if Resolved</button><br><br></td>'
+                        let generatedTable = "<tr id = 'tbl'><td>" + ndata[nprop]['equipment'] + "</td><td>" + ndata[nprop]['description'] + "</td><td>" + ndata[nprop]['details'] + "</td><td>" + ndata[nprop]['date'] + "</td><td>" + ndata[nprop]['status'] + "</td><td>" + ndata[nprop]['comment'] + "</td><td>" + ndata[nprop]['department'] + "</td></tr>";
+                        let approvedButton = '<td><button id = "approve" class = "action" onclick = "approve(\'' + nkey + '\',\'' + ukey + '\')"> Approve</button><br><br></td>'
+                        let RejectButton = '<td><button id = "reject" class = "action" onclick = "reject(\'' + nkey + '\',\'' + ukey + '\')"> Reject</button><br><br></td>'
+                        let addRepairerButton = '<td>Name: &nbsp&nbsp <input type = "text" class = "repairname" placeholder = "Input the name of repairer"><br> <br>Phone No: <input type = "text" class = "repairnum" placeholder = "Phone Number"><button class = "action assign" onclick = "addRepair(\'' + nkey + '\',\'' + ukey + '\')">Add Repairer</button><br><br></td>'
+                        let addCommentButton = '<td><textarea placeholder = "Add Comment" class = "commentbox"></textarea><br><br><button class = "comment action" onclick = "comment(\'' + nkey + '\',\'' + ukey + '\')"> Add Comment</button><br><br></td></tr>'
+                        let resolveButton = '<td><button id = "resolve" class = "action" onclick = "resolve(\'' + nkey + '\',\'' + ukey + '\')"> Click if Resolved</button><br><br></td>'
                         
-                        let markupi;
+                        let generatedButtons;
 
                         if (ndata[nprop]['approved'] == "true") {
-                            markupi = markup4 + markup5
+                            generatedButtons = addRepairerButton + addCommentButton
                         } else if (ndata[nprop]['reject'] == "true") {
-                            markupi = markup5
+                            generatedButtons = addCommentButton
                         } else {
-                            markupi = markup2 + markup3
+                            generatedButtons = approvedButton + RejectButton
                         }
 
                         if (ndata[nprop]['comment'] != "none") {
-                            markupi = markup4
+                            generatedButtons = addRepairerButton
                         }
 
                         if (ndata[nprop]['comment'] != "none" && ndata[nprop]['assigned'] != "none") {
-                            markupi = markup6
+                            generatedButtons = resolveButton
                         }
 
                         if (ndata[nprop]['comment'] == "none" && ndata[nprop]['assigned'] != "none") {
-                            markupi = markup5
+                            generatedButtons = addCommentButton
                         }
 
                         if (ndata[nprop]['reject'] == "true" && ndata[nprop]['comment'] != "none") {
-                            markupi = ""
+                            generatedButtons = ""
                         }
 
                         if (ndata[nprop]['resolve'] == "true") {
-                            markupi = ""
+                            generatedButtons = ""
                         }
 
-                        $("table").append(markup, markupi);
+                        $("table").append(generatedTable, generatedButtons);
                     }
 
                 }
