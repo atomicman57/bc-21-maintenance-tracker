@@ -11,7 +11,7 @@ function signOut() {
 
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
-        var uid = user.uid;
+        let uid = user.uid;
     } else {
         window.location = "/"
     }
@@ -24,7 +24,7 @@ function comment(usertoken, akey) {
 
     $(document).on('click', '.comment', function() {
 
-        var com = $(this).prevAll("textarea").val();
+        let com = $(this).prevAll("textarea").val();
         if (com != "") {
             firebase.database().ref("requests").child(akey).child(usertoken).update({
                 comment: com
@@ -46,8 +46,8 @@ function addRepair(usertoken, akey) {
 
     $(document).on('click', '.assign', function() {
 
-        var name = $(this).prevAll(".repairname").val();
-        var num = $(this).prevAll(".repairnum").val();
+        let name = $(this).prevAll(".repairname").val();
+        let num = $(this).prevAll(".repairnum").val();
         if (name != "" && num != "") {
             firebase.database().ref("requests").child(akey).child(usertoken).update({
                 assignname: name,
@@ -73,15 +73,15 @@ function loadRequest() {
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
 
-            var dbref = firebase.database().ref("requests")
-            var user = firebase.auth().currentUser;
-            var usertoken = user.uid;
+            let dbref = firebase.database().ref("requests")
+            let user = firebase.auth().currentUser;
+            let usertoken = user.uid;
 
             dbref.child(usertoken).on('value', function(snapshot) {
-                var data = snapshot.val();
+                let data = snapshot.val();
                 $("table #tbl").remove();
                 for (prop in data) {
-                    var markup = "<tr id = 'tbl'><td>" + data[prop]['equipment'] + "</td><td>" + data[prop]['description'] + "</td><td>" + data[prop]['details'] + "</td><td>" + data[prop]['date'] + "</td><td>" + data[prop]['status'] + "</td><td>" + data[prop]['comment'] + "</td></tr>";
+                    let markup = "<tr id = 'tbl'><td>" + data[prop]['equipment'] + "</td><td>" + data[prop]['description'] + "</td><td>" + data[prop]['details'] + "</td><td>" + data[prop]['date'] + "</td><td>" + data[prop]['status'] + "</td><td>" + data[prop]['comment'] + "</td></tr>";
                     $("table").append(markup);
 
 
@@ -99,14 +99,14 @@ function loadNotification() {
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
 
-            var dbref = firebase.database().ref("notifications")
-            var user = firebase.auth().currentUser;
-            var usertoken = user.uid;
+            let dbref = firebase.database().ref("notifications")
+            let user = firebase.auth().currentUser;
+            let usertoken = user.uid;
 
             dbref.child(usertoken).on('value', function(snapshot) {
-                var data = snapshot.val();
+                let data = snapshot.val();
                 for (prop in data) {
-                    var markup = "<p> " + data[prop]["Message"] + "</p>"
+                    let markup = "<p> " + data[prop]["Message"] + "</p>"
                     $("#notify").append(markup);
 
 
@@ -124,18 +124,18 @@ loadNotification();
 
 
 function createRequest() {
-    var equip = $("#equpid").val()
-    var describe = $("#description").val()
-    var detail = $("#detail").val()
-    var depart = $("#department").val()
-    var d = new Date;
+    let equip = $("#equpid").val()
+    let describe = $("#description").val()
+    let detail = $("#detail").val()
+    let depart = $("#department").val()
+    let d = new Date;
 
     if (equip != "" && describe != "" && detail != "" && depart != "") {
-        var today = d.getFullYear() + '/' + ('0' + (d.getMonth() + 1)).slice(-2) + '/' + ('0' + d.getDate()).slice(-2);
-        var dbref = firebase.database().ref("requests")
-        var user = firebase.auth().currentUser;
-        var userId = user.uid;
-        var dbkey = dbref.child(userId).push().key;
+        let today = d.getFullYear() + '/' + ('0' + (d.getMonth() + 1)).slice(-2) + '/' + ('0' + d.getDate()).slice(-2);
+        let dbref = firebase.database().ref("requests")
+        let user = firebase.auth().currentUser;
+        let userId = user.uid;
+        let dbkey = dbref.child(userId).push().key;
         dbref.child(userId).child(dbkey).update({
             equipment: equip,
             description: describe,
@@ -171,24 +171,24 @@ function adminloadRequest() {
 
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
-            var dbref = firebase.database().ref("requests")
+            let dbref = firebase.database().ref("requests")
             dbref.on('value', function(snapshot) {
-                var data = snapshot.val();
+                let data = snapshot.val();
                 // console.log(snapshot.val());
                 for (prop in data) {
                     ndata = data[prop]
                     for (nprop in ndata) {
                         //console.log(ndata.key())
-                        var nkey = ndata[nprop]['akey']
-                        var ukey = ndata[nprop]['userid']
-                        var markup = "<tr id = 'tbl'><td>" + ndata[nprop]['equipment'] + "</td><td>" + ndata[nprop]['description'] + "</td><td>" + ndata[nprop]['details'] + "</td><td>" + ndata[nprop]['date'] + "</td><td>" + ndata[nprop]['status'] + "</td><td>" + ndata[nprop]['comment'] + "</td><td>" + ndata[nprop]['department'] + "</td></tr>";
-                        var markup2 = '<td><button id = "approve" class = "action" onclick = "approve(\'' + nkey + '\',\'' + ukey + '\')"> Approve</button><br><br></td>'
-                        var markup3 = '<td><button id = "reject" class = "action" onclick = "reject(\'' + nkey + '\',\'' + ukey + '\')"> Reject</button><br><br></td>'
-                        var markup4 = '<td>Name: &nbsp&nbsp <input type = "text" class = "repairname" placeholder = "Input the name of repairer"><br> <br>Phone No: <input type = "text" class = "repairnum" placeholder = "Phone Number"><button class = "action assign" onclick = "addRepair(\'' + nkey + '\',\'' + ukey + '\')">Add Repairer</button><br><br></td>'
-                        var markup5 = '<td><textarea placeholder = "Add Comment" class = "commentbox"></textarea><br><br><button class = "comment action" onclick = "comment(\'' + nkey + '\',\'' + ukey + '\')"> Add Comment</button><br><br></td></tr>'
-                        var markup6 = '<td><button id = "resolve" class = "action" onclick = "resolve(\'' + nkey + '\',\'' + ukey + '\')"> Click if Resolved</button><br><br></td>'
-                        //var markup6 = "<input type = 'hidden' value = n
-                        var markupi;
+                        let nkey = ndata[nprop]['akey']
+                        let ukey = ndata[nprop]['userid']
+                        let markup = "<tr id = 'tbl'><td>" + ndata[nprop]['equipment'] + "</td><td>" + ndata[nprop]['description'] + "</td><td>" + ndata[nprop]['details'] + "</td><td>" + ndata[nprop]['date'] + "</td><td>" + ndata[nprop]['status'] + "</td><td>" + ndata[nprop]['comment'] + "</td><td>" + ndata[nprop]['department'] + "</td></tr>";
+                        let markup2 = '<td><button id = "approve" class = "action" onclick = "approve(\'' + nkey + '\',\'' + ukey + '\')"> Approve</button><br><br></td>'
+                        let markup3 = '<td><button id = "reject" class = "action" onclick = "reject(\'' + nkey + '\',\'' + ukey + '\')"> Reject</button><br><br></td>'
+                        let markup4 = '<td>Name: &nbsp&nbsp <input type = "text" class = "repairname" placeholder = "Input the name of repairer"><br> <br>Phone No: <input type = "text" class = "repairnum" placeholder = "Phone Number"><button class = "action assign" onclick = "addRepair(\'' + nkey + '\',\'' + ukey + '\')">Add Repairer</button><br><br></td>'
+                        let markup5 = '<td><textarea placeholder = "Add Comment" class = "commentbox"></textarea><br><br><button class = "comment action" onclick = "comment(\'' + nkey + '\',\'' + ukey + '\')"> Add Comment</button><br><br></td></tr>'
+                        let markup6 = '<td><button id = "resolve" class = "action" onclick = "resolve(\'' + nkey + '\',\'' + ukey + '\')"> Click if Resolved</button><br><br></td>'
+                        //let markup6 = "<input type = 'hidden' value = n
+                        let markupi;
 
                         if (ndata[nprop]['approved'] == "true") {
                             markupi = markup4 + markup5
@@ -233,9 +233,9 @@ function adminloadRequest() {
 function approve(akey, usertoken) {
 
     firebase.database().ref('requests').child(usertoken).child(akey).on('value', function(snapshot) {
-        var reqdetail = snapshot.val();
-        var reqname = reqdetail["equipment"]
-        var reqdate = reqdetail["date"]
+        let reqdetail = snapshot.val();
+        let reqname = reqdetail["equipment"]
+        let reqdate = reqdetail["date"]
 
 
         firebase.database().ref("notify").set({
@@ -262,9 +262,9 @@ function approve(akey, usertoken) {
 function reject(akey, usertoken) {
 
     firebase.database().ref('requests').child(usertoken).child(akey).on('value', function(snapshot) {
-        var reqdetail = snapshot.val();
-        var reqname = reqdetail["equipment"]
-        var reqdate = reqdetail["date"]
+        let reqdetail = snapshot.val();
+        let reqname = reqdetail["equipment"]
+        let reqdate = reqdetail["date"]
 
         firebase.database().ref("notify").set({
             notify: 1
@@ -316,12 +316,12 @@ function staff() {
 
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
-        var userId = firebase.auth().currentUser.uid;
+        let userId = firebase.auth().currentUser.uid;
         firebase.database().ref('users').child(userId).once('value').then(function(snapshot) {
-            var userdetail = snapshot.val();
-            var fullname = userdetail["Fullname"];
-            var username = userdetail["Username"];
-            var level = userdetail["level"];
+            let userdetail = snapshot.val();
+            let fullname = userdetail["Fullname"];
+            let username = userdetail["Username"];
+            let level = userdetail["level"];
             if (level == 2) {
                 admin()
                 adminloadRequest()
@@ -342,13 +342,13 @@ firebase.auth().onAuthStateChanged(function(user) {
 
 
 function fileUpload() {
-    var file = document.getElementById("file").files[0]
+    let file = document.getElementById("file").files[0]
     console.log(file)
-    var fileName = file.name;
+    let fileName = file.name;
     console.log(file)
-    var storageRef = firebase.storage().ref("images");
-    var spaceRef = storageRef.child(fileName);
-    var uploadTask = spaceRef.put(file);
+    let storageRef = firebase.storage().ref("images");
+    let spaceRef = storageRef.child(fileName);
+    let uploadTask = spaceRef.put(file);
     document.getElementById("file").value = "";
     alert("Your file have been uploaded");
 }
