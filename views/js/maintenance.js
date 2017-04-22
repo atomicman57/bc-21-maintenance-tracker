@@ -25,7 +25,7 @@ function signOut() {
 
 /**
  * This firebase function check if the user accessing this page is signed in
- * This can only be view if user is signed in
+ * The html page can only be view if user is signed in
  * If user is not signed in, it redirect to the home page
  */
 
@@ -44,16 +44,20 @@ firebase.auth().onAuthStateChanged(function(user) {
  * Only admin have access to this function
  * @param {string} The user id of the staff that make the request 
  * @param {string} The id/key of the request on firebase database
+ * it stores the comment in the database reference "requests"
+ * It checks if the "Add Comment Button" with html class "comment" is clicked
+ * It gets the comment from the textarea of html of the page
+ * It also handles error, if the user does not enter any input
  */
 
 function comment(usertoken, akey) {
 
     $(document).on('click', '.comment', function() {
 
-        let com = $(this).prevAll("textarea").val();
-        if (com != "") {
+        let comments = $(this).prevAll("textarea").val();
+        if (comments != "") {
             firebase.database().ref("requests").child(akey).child(usertoken).update({
-                comment: com
+                comment: comments
             });
             location.reload()
         } else {
@@ -66,7 +70,17 @@ function comment(usertoken, akey) {
 }
 
 
-
+/**
+ * Add repairer Function
+ * Only admin have access to this function
+ * @param {string} The user id of the staff that make the request 
+ * @param {string} The id/key of the request on firebase database
+ * it stores the repairer name and phone number in the database reference "requests"
+ * It checks if the "Add Repairer" button with html class "assign" is clicked
+ * It gets the inputs from the input textboxs of html of the page
+ * It also handles error, if the user does not enter any input
+ * It then change the "assigned"(assign status) of the request to "true"
+ */
 
 function addRepair(usertoken, akey) {
 
@@ -94,6 +108,14 @@ function addRepair(usertoken, akey) {
 
 
 
+/**
+ * Load Request Function
+ * Only the staff have access to this function.
+ * it load the requests of staff logged in from the database reference "requests"
+ * It get the user id and load all request on that user id
+ * It then add it to the html table
+ */
+
 function loadRequest() {
 
     firebase.auth().onAuthStateChanged(function(user) {
@@ -107,8 +129,8 @@ function loadRequest() {
                 let data = snapshot.val();
                 $("table #tbl").remove();
                 for (prop in data) {
-                    let markup = "<tr id = 'tbl'><td>" + data[prop]['equipment'] + "</td><td>" + data[prop]['description'] + "</td><td>" + data[prop]['details'] + "</td><td>" + data[prop]['date'] + "</td><td>" + data[prop]['status'] + "</td><td>" + data[prop]['comment'] + "</td></tr>";
-                    $("table").append(markup);
+                    let datas = "<tr id = 'tbl'><td>" + data[prop]['equipment'] + "</td><td>" + data[prop]['description'] + "</td><td>" + data[prop]['details'] + "</td><td>" + data[prop]['date'] + "</td><td>" + data[prop]['status'] + "</td><td>" + data[prop]['comment'] + "</td></tr>";
+                    $("table").append(datas);
 
 
 
@@ -119,6 +141,17 @@ function loadRequest() {
 
 }
 
+
+
+
+/**
+ * Load Notification Function.
+ * This function load the notification of the staff from database
+ * It get the current user with firebase function currentUser
+ * It add the notification to html id name with "notify"
+ * It is then called after to load notification for the current User
+ * This function is for only staff
+ */
 
 function loadNotification() {
 
@@ -149,27 +182,29 @@ loadNotification();
 
 
 
-function createRequest() {
-    let equip = $("#equpid").val()
-    let describe = $("#description").val()
-    let detail = $("#detail").val()
-    let depart = $("#department").val()
-    let d = new Date;
 
-    if (equip != "" && describe != "" && detail != "" && depart != "") {
-        let today = d.getFullYear() + '/' + ('0' + (d.getMonth() + 1)).slice(-2) + '/' + ('0' + d.getDate()).slice(-2);
+
+function createRequest() {
+    let equipmentNo = $("#equpid").val()
+    let descriptionOfEquipment = $("#description").val()
+    let detail = $("#detail").val()
+    let departmentOfStaff = $("#department").val()
+    let date = new Date;
+
+    if (equipmentNo != "" && descriptionOfEquipment != "" && detail != "" && departmentOfStaff != "") {
+        let today = date.getFullYear() + '/' + ('0' + (date.getMonth() + 1)).slice(-2) + '/' + ('0' + date.getDate()).slice(-2);
         let dbref = firebase.database().ref("requests")
         let user = firebase.auth().currentUser;
         let userId = user.uid;
         let dbkey = dbref.child(userId).push().key;
         dbref.child(userId).child(dbkey).update({
-            equipment: equip,
-            description: describe,
+            equipment: equipmentNo,
+            description: descriptionOfEquipment,
             details: detail,
             date: today,
             status: "pending",
             comment: "none",
-            department: depart,
+            department: departmentOfStaff,
             approved: "false",
             reject: "false",
             assigned: "none",
@@ -200,11 +235,11 @@ function adminloadRequest() {
             let dbref = firebase.database().ref("requests")
             dbref.on('value', function(snapshot) {
                 let data = snapshot.val();
-                // console.log(snapshot.val());
+    
                 for (prop in data) {
                     ndata = data[prop]
                     for (nprop in ndata) {
-                        //console.log(ndata.key())
+                        
                         let nkey = ndata[nprop]['akey']
                         let ukey = ndata[nprop]['userid']
                         let markup = "<tr id = 'tbl'><td>" + ndata[nprop]['equipment'] + "</td><td>" + ndata[nprop]['description'] + "</td><td>" + ndata[nprop]['details'] + "</td><td>" + ndata[nprop]['date'] + "</td><td>" + ndata[nprop]['status'] + "</td><td>" + ndata[nprop]['comment'] + "</td><td>" + ndata[nprop]['department'] + "</td></tr>";
@@ -213,7 +248,7 @@ function adminloadRequest() {
                         let markup4 = '<td>Name: &nbsp&nbsp <input type = "text" class = "repairname" placeholder = "Input the name of repairer"><br> <br>Phone No: <input type = "text" class = "repairnum" placeholder = "Phone Number"><button class = "action assign" onclick = "addRepair(\'' + nkey + '\',\'' + ukey + '\')">Add Repairer</button><br><br></td>'
                         let markup5 = '<td><textarea placeholder = "Add Comment" class = "commentbox"></textarea><br><br><button class = "comment action" onclick = "comment(\'' + nkey + '\',\'' + ukey + '\')"> Add Comment</button><br><br></td></tr>'
                         let markup6 = '<td><button id = "resolve" class = "action" onclick = "resolve(\'' + nkey + '\',\'' + ukey + '\')"> Click if Resolved</button><br><br></td>'
-                        //let markup6 = "<input type = 'hidden' value = n
+                        
                         let markupi;
 
                         if (ndata[nprop]['approved'] == "true") {
