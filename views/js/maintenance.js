@@ -150,7 +150,7 @@ function loadRequest() {
  * It get the current user with firebase function currentUser
  * It add the notification to html id name with "notify"
  * It is then called after to load notification for the current User
- * This function is for only staff
+ * This function only for staffs
  */
 
 function loadNotification() {
@@ -181,7 +181,16 @@ loadNotification();
 
 
 
-
+/**
+ * Create Request Function.
+ * This function create a request and save it on the firebase database with refrence "requests"
+ * It gets the user input with the id using jquery .val
+ * It get the current date with Js Date object
+ * It checks if there is an input in the input textbox
+ * If there is no input it alert an error
+ * It is also alert if the request creation was succesful
+ * This function is for only staff
+ */
 
 
 function createRequest() {
